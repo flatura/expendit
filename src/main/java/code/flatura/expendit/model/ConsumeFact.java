@@ -1,11 +1,24 @@
 package code.flatura.expendit.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "consume_fact")
 public class ConsumeFact extends AbstractBaseEntity {
+
+    @Column(name = "room_id", nullable = false)
     private Integer roomId;
+
+    @Column(name = "consumable_id", nullable = false)
     private Integer consumableId;
+
+    @Column(name = "consumable_model_id", nullable = false)
     private Integer consumableModelId;
+
+    @Column(name = "date", nullable = false)
     private LocalDate date;
 
     public ConsumeFact(Integer roomId, Integer consumableId, Integer consumableModelId, LocalDate date) {

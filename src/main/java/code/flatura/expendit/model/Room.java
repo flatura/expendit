@@ -1,13 +1,28 @@
 package code.flatura.expendit.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import java.util.Objects;
 
+@Entity
+@Table(name = "room", uniqueConstraints = {@UniqueConstraint(columnNames = {"title", "facility_id"}, name = "unique_room_idx")})
 public class Room extends AbstractBaseEntity {
 
+    @Column(name = "title", nullable = false)
     private String title;
+
+    @Column(name = "facility_id", nullable = false)
     private long facilityId;
+
+    @Column(name = "storage", nullable = false)
     private boolean storage;
+
+    @Column(name = "user_id", nullable = false)
     private Integer userId;
+
+    @Column(name = "comments", nullable = false)
     private String comments;
 
     public Room(String title, long facilityId, boolean storage, Integer userId, String comments) {

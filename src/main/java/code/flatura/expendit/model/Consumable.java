@@ -1,10 +1,26 @@
 package code.flatura.expendit.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "consumable")
 public class Consumable extends AbstractNamedEntity {
+
+    @Column(name = "contract")
     private String contract;
+
+    @Column(name = "price")
     private Integer price;
+
+    @Column(name = "consumable_model_id")
     private Integer consumableTypeId;
+
+    @Column(name = "consumable_type_id")
     private Integer consumableModelId;
+
+    @Column(name = "status")
     private Integer status;
 
     public Consumable(String contract, Integer price, Integer consumableTypeId, Integer consumableModelId, Integer status) {

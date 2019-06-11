@@ -1,9 +1,20 @@
 package code.flatura.expendit.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "facility")
 public class Facility extends AbstractBaseEntity {
 
+    @Column(name = "title", nullable = false)
     private String title;
+
+    @Column(name = "address", nullable = false, unique = true)
     private String address;
+
+    @Column(name = "comments")
     private String comments;
 
     public Facility(String title, String address, String comments) {
