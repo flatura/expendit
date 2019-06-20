@@ -24,6 +24,9 @@ public class ConsumableModel extends AbstractNamedEntity {
         this.resource = resource;
     }
 
+    public ConsumableModel() {
+    }
+
     public String getPartNumber() {
         return partNumber;
     }

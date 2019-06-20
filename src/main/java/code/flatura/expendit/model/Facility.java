@@ -23,6 +23,9 @@ public class Facility extends AbstractBaseEntity {
         this.comments = comments;
     }
 
+    public Facility() {
+    }
+
     public String getTitle() {
         return title;
     }

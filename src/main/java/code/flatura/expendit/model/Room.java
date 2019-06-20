@@ -33,6 +33,9 @@ public class Room extends AbstractBaseEntity {
         this.comments = comments;
     }
 
+    public Room() {
+    }
+
     public String getTitle() {
         return title;
     }

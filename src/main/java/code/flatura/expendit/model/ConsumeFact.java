@@ -28,6 +28,9 @@ public class ConsumeFact extends AbstractBaseEntity {
         this.date = date;
     }
 
+    public ConsumeFact() {
+    }
+
     public Integer getRoomId() {
         return roomId;
     }

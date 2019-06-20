@@ -15,6 +15,9 @@ public class ConsumableType extends AbstractNamedEntity {
         this.comments = comments;
     }
 
+    public ConsumableType() {
+    }
+
     public String getComments() {
         return comments;
     }

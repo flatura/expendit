@@ -31,6 +31,9 @@ public class Consumable extends AbstractNamedEntity {
         this.status = status;
     }
 
+    public Consumable() {
+    }
+
     public String getContract() {
         return contract;
     }
