@@ -8,11 +8,11 @@ import static code.flatura.expendit.util.Util.START_SEQ;
 
 @Entity
 @Table(name = "consume_fact")
-public class ConsumeFact extends AbstractNamedEntity {
+public class ConsumeFact {
 
     @Id
-    @SequenceGenerator(name = "consumable_fact_seq", sequenceName = "consumable_fact_seq", allocationSize = 1, initialValue = START_SEQ)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "consumable_fact_seq")
+    @SequenceGenerator(name = "consume_fact_seq", sequenceName = "consume_fact_seq", allocationSize = 1, initialValue = START_SEQ)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "consume_fact_seq")
     private Integer id;
 
     @Column(name = "room_id", nullable = false)
@@ -31,7 +31,7 @@ public class ConsumeFact extends AbstractNamedEntity {
         this.roomId = roomId;
         this.consumableId = consumableId;
         this.consumableModelId = consumableModelId;
-        this.date = date;
+        this.date = date == null ? LocalDate.now() : date;
     }
 
     public ConsumeFact() {
