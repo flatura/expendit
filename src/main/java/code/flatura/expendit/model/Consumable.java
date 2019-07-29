@@ -23,12 +23,16 @@ public class Consumable extends AbstractNamedEntity {
     @Column(name = "status")
     private Integer status;
 
-    public Consumable(String contract, Integer price, Integer consumableTypeId, Integer consumableModelId, Integer status) {
+    @Column(name = "room_id")
+    private Integer roomId;
+
+    public Consumable(String contract, Integer price, Integer consumableTypeId, Integer consumableModelId, Integer status, Integer roomId) {
         this.contract = contract;
         this.price = price;
         this.consumableTypeId = consumableTypeId;
         this.consumableModelId = consumableModelId;
         this.status = status;
+        this.roomId = roomId;
     }
 
     public Consumable() {
@@ -74,5 +78,11 @@ public class Consumable extends AbstractNamedEntity {
         this.status = status;
     }
 
+    public Integer getRoomId() {
+        return roomId;
+    }
 
+    public void setRoomId(Integer roomId) {
+        this.roomId = roomId;
+    }
 }
