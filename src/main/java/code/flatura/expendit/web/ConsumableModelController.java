@@ -9,17 +9,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/api/model", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ConsumableModelController {
-    private ConsumableModelService dishService;
+    private ConsumableModelService consumableModelService;
 
-    public ConsumableModelController(ConsumableModelService dishService) {
-        this.dishService = dishService;
+    public ConsumableModelController(ConsumableModelService consumableModelService) {
+        this.consumableModelService = consumableModelService;
     }
 
     public ConsumableModelController() {
     }
 
     @Autowired
-    public void setDishService(ConsumableModelService dishService) {
-        this.dishService = dishService;
+    public void setConsumableModelService(ConsumableModelService consumableModelService) {
+        this.consumableModelService = consumableModelService;
     }
 }
