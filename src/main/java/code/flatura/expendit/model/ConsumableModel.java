@@ -1,13 +1,18 @@
 package code.flatura.expendit.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Objects;
+
+import static code.flatura.expendit.util.Util.START_SEQ;
 
 @Entity
 @Table(name = "consumable_model")
 public class ConsumableModel extends AbstractNamedEntity {
+
+    @Id
+    @SequenceGenerator(name = "consumable_model_seq", sequenceName = "consumable_model_seq", allocationSize = 1, initialValue = START_SEQ)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "consumable_model_seq")
+    private Integer id;
 
     @Column(name = "partnumber", nullable = false, unique = true)
     private String partNumber;
@@ -49,6 +54,14 @@ public class ConsumableModel extends AbstractNamedEntity {
 
     public void setResource(Integer resource) {
         this.resource = resource;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     @Override

@@ -1,12 +1,19 @@
 package code.flatura.expendit.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+
+import java.util.Objects;
+
+import static code.flatura.expendit.util.Util.START_SEQ;
 
 @Entity
 @Table(name = "facility")
-public class Facility extends AbstractBaseEntity {
+public class Facility extends AbstractNamedEntity {
+
+    @Id
+    @SequenceGenerator(name = "facility_seq", sequenceName = "facility_seq", allocationSize = 1, initialValue = START_SEQ)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "facility_seq")
+    private Integer id;
 
     @Column(name = "title", nullable = false)
     private String title;
@@ -50,6 +57,14 @@ public class Facility extends AbstractBaseEntity {
         this.comments = comments;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "Facility{" +
@@ -57,5 +72,19 @@ public class Facility extends AbstractBaseEntity {
                 ", address='" + address + '\'' +
                 ", comments='" + comments + '\'' +
                 "} " + super.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Facility facility = (Facility) o;
+        return id.equals(facility.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), id);
     }
 }

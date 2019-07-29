@@ -1,12 +1,18 @@
 package code.flatura.expendit.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Objects;
+
+import static code.flatura.expendit.util.Util.START_SEQ;
 
 @Entity
 @Table(name = "consumable")
 public class Consumable extends AbstractNamedEntity {
+
+    @Id
+    @SequenceGenerator(name = "consumable_seq", sequenceName = "consumable_seq", allocationSize = 1, initialValue = START_SEQ)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "consumable_seq")
+    private Integer id;
 
     @Column(name = "contract")
     private String contract;
@@ -84,5 +90,26 @@ public class Consumable extends AbstractNamedEntity {
 
     public void setRoomId(Integer roomId) {
         this.roomId = roomId;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Consumable that = (Consumable) o;
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

@@ -1,14 +1,18 @@
 package code.flatura.expendit.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import java.util.Objects;
+
+import static code.flatura.expendit.util.Util.START_SEQ;
 
 @Entity
 @Table(name = "room", uniqueConstraints = {@UniqueConstraint(columnNames = {"title", "facility_id"}, name = "unique_room_idx")})
-public class Room extends AbstractBaseEntity {
+public class Room extends AbstractNamedEntity {
+
+    @Id
+    @SequenceGenerator(name = "room_seq", sequenceName = "room_seq", allocationSize = 1, initialValue = START_SEQ)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "room_seq")
+    private Integer id;
 
     @Column(name = "title", nullable = false)
     private String title;
@@ -74,6 +78,14 @@ public class Room extends AbstractBaseEntity {
 
     public void setComments(String comments) {
         this.comments = comments;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     @Override

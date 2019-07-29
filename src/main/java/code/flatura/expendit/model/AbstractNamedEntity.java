@@ -4,7 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public abstract class AbstractNamedEntity extends AbstractBaseEntity {
+public abstract class AbstractNamedEntity{
 
     @Column(name = "name", nullable = false)
     protected String name;
@@ -13,7 +13,6 @@ public abstract class AbstractNamedEntity extends AbstractBaseEntity {
     }
 
     protected AbstractNamedEntity(Integer id, String name) {
-        super(id);
         this.name = name;
     }
 
@@ -27,6 +26,6 @@ public abstract class AbstractNamedEntity extends AbstractBaseEntity {
 
     @Override
     public String toString() {
-        return String.format("Entity %s (%s, '%s')", getClass().getName(), id, name);
+        return String.format("Entity %s ('%s')", getClass().getName(), name);
     }
 }
