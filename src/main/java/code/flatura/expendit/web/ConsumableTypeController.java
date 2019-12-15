@@ -24,4 +24,6 @@ public class ConsumableTypeController {
     public void setConsumableTypeService(ConsumableTypeService consumableTypeService) {
         this.consumableTypeService = consumableTypeService;
     }
+
+
 }

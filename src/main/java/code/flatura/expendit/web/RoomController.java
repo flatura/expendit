@@ -54,9 +54,8 @@ public class RoomController {
         roomService.update(updatedRoom, id);
     }
 
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") int id) {
         roomService.delete(id);
     }
-
-
 }

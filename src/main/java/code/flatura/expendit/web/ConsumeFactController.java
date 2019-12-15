@@ -3,10 +3,14 @@ package code.flatura.expendit.web;
 import code.flatura.expendit.model.ConsumeFact;
 import code.flatura.expendit.service.ConsumeFactService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -43,19 +47,28 @@ public class ConsumeFactController {
                 .orElseGet(() -> new ResponseEntity<>((HttpStatus.NOT_FOUND)));
     }
 
+    @GetMapping("/between")
+    public ResponseEntity<List<ConsumeFact>> getBetween(
+            @Valid @RequestParam(name = "startDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @Valid @RequestParam(name = "endDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        System.out.println(startDate);
+        System.out.println(endDate);
+        return new ResponseEntity<>(
+                consumeFactService.getBetweenDates(
+                    startDate,// == null ? LocalDate.MIN : startDate,
+                    endDate),// == null ? LocalDate.MAX : endDate),
+                    HttpStatus.OK);
+    }
+
+
     @GetMapping("/model/{modelId}")
     public ResponseEntity<List<ConsumeFact>> getByModel(@PathVariable("modelId") int modelId) {
-        return new ResponseEntity<>(consumeFactService.getByModel(modelId), HttpStatus.OK);
+        return new ResponseEntity<>(consumeFactService.getByModelId(modelId), HttpStatus.OK);
     }
 
     @GetMapping("/room/{roomId}")
     public ResponseEntity<List<ConsumeFact>> getByRoomId(@PathVariable("roomId") int roomId) {
         return new ResponseEntity<>(consumeFactService.getByRoomId(roomId), HttpStatus.OK);
-    }
-
-    @PutMapping("/{id}")
-    public void save(@PathVariable("id") int id, @RequestBody() ConsumeFact updatedConsumeFact) {
-        consumeFactService.save(id, updatedConsumeFact);
     }
 
     @DeleteMapping("/{id}")

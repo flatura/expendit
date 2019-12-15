@@ -9,8 +9,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class ExpenditApplication {
 
     public static void main(String[] args) {
-
         SpringApplication.run(ExpenditApplication.class, args);
-        //System.out.println("It works!");
     }
 }

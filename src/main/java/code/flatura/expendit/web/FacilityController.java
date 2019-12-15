@@ -31,7 +31,7 @@ public class FacilityController {
 
     @PostMapping()
     public ResponseEntity<Facility> create(@RequestBody() Facility newFacility) {
-        return new ResponseEntity<Facility>(facilityService.create(newFacility), HttpStatus.OK);
+        return new ResponseEntity<>(facilityService.create(newFacility), HttpStatus.OK);
     }
 
     @GetMapping()

@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/consumables")
+@RequestMapping(value = ConsumableController.REST_URL)
 public class ConsumableController {
+    static final String REST_URL = "/api/consumables";
+
     private ConsumableService consumableService;
 
     public ConsumableController(ConsumableService consumableService) {
@@ -57,7 +59,6 @@ public class ConsumableController {
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void update(@PathVariable("id") int id, @RequestBody Consumable consumable) {
-        consumable.setId(null);
         consumableService.update(consumable, id);
     }
 
