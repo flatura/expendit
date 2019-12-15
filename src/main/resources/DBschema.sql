@@ -43,20 +43,20 @@ CREATE TABLE user_roles
 
 CREATE TABLE facility (
 	id               INTEGER PRIMARY KEY DEFAULT nextval('facility_seq'),
-	title            varchar(255)          NOT NULL,
+	name            varchar(255)          NOT NULL,
 	address          varchar(255)          NOT NULL UNIQUE,
 	comments         varchar(255),
-	CONSTRAINT unique_facility_idx UNIQUE (title, address)
+	CONSTRAINT unique_facility_idx UNIQUE (name, address)
 );
 
 CREATE TABLE room (
 	id               INTEGER PRIMARY KEY DEFAULT nextval('room_seq'),
-	title            varchar(255)          NOT NULL,
+	name            varchar(255)          NOT NULL,
 	facility_id      integer               NOT NULL,
 	storage          boolean               NOT NULL,
 	user_id          integer			   ,
 	comments         varchar(255)          ,
-	CONSTRAINT unique_room_idx UNIQUE (title, facility_id),
+	CONSTRAINT unique_room_idx UNIQUE (name, facility_id),
 	FOREIGN KEY (facility_id) REFERENCES facility (id) ON DELETE CASCADE,
 	FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE SET NULL
 );

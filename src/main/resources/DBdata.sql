@@ -21,12 +21,12 @@ INSERT INTO users (name, email, password) VALUES
   ('Admin', 'admin@gmail.com', '{noop}admin');    --100002
 
 INSERT INTO user_roles (role, user_id) VALUES
-        ('ROLE_USER', 100000),
+    ('ROLE_USER', 100000),
 		('ROLE_USER', 100001),
 		('ROLE_USER', 100002),
         ('ROLE_ADMIN', 100002);
 
-INSERT INTO facility (title, address) VALUES 
+INSERT INTO facility (name, address) VALUES
 		('1507','Профсоюзная ул. д.132 к.9'),  --100000
 		( '865','Профсоюзная ул. д.142 к.5'),  --100001
 		( '930','Островитянова ул. Д.18 к.5'), --100002
@@ -47,7 +47,7 @@ INSERT INTO consumable_type (name, comments) VALUES
 	   ('Pigment ink Cartridge',''),	--100006
 	   ('Color ink Cartridge','');		--100007
 
-INSERT INTO room (title, facility_id, storage) VALUES
+INSERT INTO room (name, facility_id, storage) VALUES
 		('1507 / Каб.103 (физика)',100000,false),
 		('1507 / Каб.104 (история и обществознание)',100000,false),
 		('1507 / Каб.105 (кадровый отдел)',100000,false),
