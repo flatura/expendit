@@ -41,6 +41,11 @@ public class Consumable extends AbstractNamedEntity {
         this.roomId = roomId;
     }
 
+    public Consumable(int id, String contract, Integer price, Integer consumableTypeId, Integer consumableModelId, Integer status, Integer roomId) {
+        this(contract, price, consumableTypeId, consumableModelId, status, roomId);
+        this.id = id;
+    }
+
     public Consumable() {
     }
 

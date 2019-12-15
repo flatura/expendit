@@ -6,7 +6,7 @@ import java.util.Objects;
 import static code.flatura.expendit.util.Util.START_SEQ;
 
 @Entity
-@Table(name = "room", uniqueConstraints = {@UniqueConstraint(columnNames = {"title", "facility_id"}, name = "unique_room_idx")})
+@Table(name = "room", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "facility_id"}, name = "unique_room_idx")})
 public class Room extends AbstractNamedEntity {
 
     @Id
@@ -14,38 +14,32 @@ public class Room extends AbstractNamedEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "room_seq")
     private Integer id;
 
-    @Column(name = "title", nullable = false)
-    private String title;
-
     @Column(name = "facility_id", nullable = false)
     private long facilityId;
 
     @Column(name = "storage", nullable = false)
     private boolean storage;
 
-    @Column(name = "user_id", nullable = false)
+    @Column(name = "user_id")
     private Integer userId;
 
     @Column(name = "comments", nullable = false)
     private String comments;
 
-    public Room(String title, long facilityId, boolean storage, Integer userId, String comments) {
-        this.title = title;
+    public Room(String name, long facilityId, boolean storage, Integer userId, String comments) {
+        this.name = name;
         this.facilityId = facilityId;
         this.storage = storage;
         this.userId = userId;
         this.comments = comments;
     }
 
+    public Room(int id, String name, long facilityId, boolean storage, Integer userId, String comments) {
+        this(name, facilityId, storage, userId, comments);
+        this.id = id;
+    }
+
     public Room() {
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public long getFacilityId() {
@@ -91,7 +85,7 @@ public class Room extends AbstractNamedEntity {
     @Override
     public String toString() {
         return "Room{" +
-                "title='" + title + '\'' +
+                "title='" + name + '\'' +
                 ", facilityId=" + facilityId +
                 ", storage=" + storage +
                 ", userId=" + userId +
@@ -106,11 +100,11 @@ public class Room extends AbstractNamedEntity {
         if (!super.equals(o)) return false;
         Room room = (Room) o;
         return facilityId == room.facilityId &&
-                title.equals(room.title);
+                name.equals(room.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), title, facilityId);
+        return Objects.hash(super.hashCode(), name, facilityId);
     }
 }

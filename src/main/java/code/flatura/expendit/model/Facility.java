@@ -15,31 +15,26 @@ public class Facility extends AbstractNamedEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "facility_seq")
     private Integer id;
 
-    @Column(name = "title", nullable = false)
-    private String title;
-
     @Column(name = "address", nullable = false, unique = true)
     private String address;
 
     @Column(name = "comments")
     private String comments;
 
-    public Facility(String title, String address, String comments) {
-        this.title = title;
+    public Facility(String name, String address, String comments) {
+        this.name = name;
         this.address = address;
         this.comments = comments;
+    }
+
+    public Facility(int id, String name, String address, String comments) {
+        this(name, address, comments);
+        this.id = id;
     }
 
     public Facility() {
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
     public String getAddress() {
         return address;
@@ -68,7 +63,7 @@ public class Facility extends AbstractNamedEntity {
     @Override
     public String toString() {
         return "Facility{" +
-                "title='" + title + '\'' +
+                "title='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", comments='" + comments + '\'' +
                 "} " + super.toString();

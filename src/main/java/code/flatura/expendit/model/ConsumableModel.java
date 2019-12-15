@@ -18,15 +18,20 @@ public class ConsumableModel extends AbstractNamedEntity {
     private String partNumber;
 
     @Column(name = "consumable_type_id", nullable = false)
-    private Integer ConsumableTypeId;
+    private int consumableTypeId;
 
     @Column(name = "resource", nullable = false)
     private Integer resource;
 
     public ConsumableModel(String partNumber, Integer consumableTypeId, Integer resource) {
         this.partNumber = partNumber;
-        ConsumableTypeId = consumableTypeId;
+        this.consumableTypeId = consumableTypeId;
         this.resource = resource;
+    }
+
+    public ConsumableModel(int id, String partNumber, Integer consumableTypeId, Integer resource) {
+        this(partNumber, consumableTypeId, resource);
+        this.id = id;
     }
 
     public ConsumableModel() {
@@ -41,11 +46,11 @@ public class ConsumableModel extends AbstractNamedEntity {
     }
 
     public Integer getConsumableTypeId() {
-        return ConsumableTypeId;
+        return consumableTypeId;
     }
 
     public void setConsumableTypeId(Integer consumableTypeId) {
-        ConsumableTypeId = consumableTypeId;
+        consumableTypeId = consumableTypeId;
     }
 
     public Integer getResource() {
@@ -82,7 +87,7 @@ public class ConsumableModel extends AbstractNamedEntity {
     public String toString() {
         return "ConsumableModel{" +
                 "partNumber='" + partNumber + '\'' +
-                ", ConsumableTypeId=" + ConsumableTypeId +
+                ", ConsumableTypeId=" + consumableTypeId +
                 ", resource=" + resource +
                 "} " + super.toString();
     }
