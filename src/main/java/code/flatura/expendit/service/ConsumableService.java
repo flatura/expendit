@@ -45,7 +45,7 @@ public class ConsumableService {
     }
 
     public List<Consumable> getFull() {
-        return consumableRepository.findFull();
+        return consumableRepository.getFull();
     }
 
     public void update(Consumable consumable, int id) {
