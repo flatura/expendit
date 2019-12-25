@@ -1,9 +1,11 @@
 package code.flatura.expendit.service;
 
 import code.flatura.expendit.model.Room;
+import code.flatura.expendit.repository.ConsumableRepository;
 import code.flatura.expendit.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,17 +14,15 @@ import java.util.Optional;
 public class RoomService {
 
     private RoomRepository roomRepository;
+    private ConsumableRepository consumableRepository;
 
-    public RoomService(RoomRepository roomRepository) {
+    @Autowired
+    public RoomService(RoomRepository roomRepository, ConsumableRepository consumableRepository) {
         this.roomRepository = roomRepository;
+        this.consumableRepository = consumableRepository;
     }
 
     public RoomService() {
-    }
-
-    @Autowired
-    public void setRoomRepository(RoomRepository roomRepository) {
-        this.roomRepository = roomRepository;
     }
 
     public Room create(Room newRoom) {
@@ -47,7 +47,10 @@ public class RoomService {
         }
     }
 
+    @Transactional
     public void delete(int id) {
-        roomRepository.deleteById(id);
+        // Delete room only if it doesn't have new consumables in it
+        if (consumableRepository.getByRoomId(id).stream().noneMatch(c -> c.getStatus() == 1))
+            roomRepository.deleteById(id);
     }
 }

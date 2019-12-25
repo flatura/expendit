@@ -15,13 +15,14 @@ import java.util.Optional;
 @Service
 public class ConsumeFactService {
 
-    @Autowired
     private ConsumeFactRepository consumeFactRepository;
-    @Autowired
+
     private ConsumableRepository consumableRepository;
 
-    public ConsumeFactService(ConsumeFactRepository consumeFactRepository) {
+    @Autowired
+    public ConsumeFactService(ConsumeFactRepository consumeFactRepository, ConsumableRepository consumableRepository) {
         this.consumeFactRepository = consumeFactRepository;
+        this.consumableRepository = consumableRepository;
     }
 
     public ConsumeFactService() {

@@ -53,5 +53,4 @@ public class FacilityController {
     public void delete(@PathVariable("id") int id) {
         facilityService.delete(id);
     }
-
 }

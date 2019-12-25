@@ -1,28 +1,29 @@
 package code.flatura.expendit.service;
 
 import code.flatura.expendit.model.Facility;
+import code.flatura.expendit.model.Room;
+import code.flatura.expendit.repository.ConsumableRepository;
 import code.flatura.expendit.repository.FacilityRepository;
+import code.flatura.expendit.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class FacilityService {
 
     private FacilityRepository facilityRepository;
 
+    @Autowired
     public FacilityService(FacilityRepository facilityRepository) {
         this.facilityRepository = facilityRepository;
     }
 
     public FacilityService() {
-    }
-
-    @Autowired
-    public void setFacilityRepository(FacilityRepository facilityRepository) {
-        this.facilityRepository = facilityRepository;
     }
 
     public Facility create(Facility newFacility) {
@@ -44,8 +45,6 @@ public class FacilityService {
         }
     }
 
-
-    //TODO find all consumables in the facility and change their room
     public void delete(int id) {
         facilityRepository.deleteById(id);
     }

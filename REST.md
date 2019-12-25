@@ -119,19 +119,19 @@ CREATE
 
 GET all : 
 
-`curl -s http://localhost:8080/api/`
+`curl -s http://localhost:8080/api/types`
 
 GET  with id 100024: 
 
-`curl -s http://localhost:8080/api//100024`
+`curl -s http://localhost:8080/api/types/100024`
 
 CREATE 
 
-`curl -s -X POST -d '{"name":"Canon 728"}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/api/`
+`curl -s -X POST -d '{"name":"Canon 728"}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/api/types`
 
 DELETE  with id 100024: 
 
-`curl -s -X DELETE http://localhost:8080/api//100024`
+`curl -s -X DELETE http://localhost:8080/api/types/100024`
 
 ###### ConsumableModel API:
 
@@ -141,16 +141,16 @@ CREATE ConsumableModel
 
 GET all ConsumableModels: 
 
-`curl -s http://localhost:8080/api/consumablemodels`
+`curl -s http://localhost:8080/api/models`
 
 GET ConsumableModel with id 100001: 
 
-`curl -s http://localhost:8080/api/consumablemodels/100001`
+`curl -s http://localhost:8080/api/models/100001`
 
 UPDATE ConsumableModel with id 100002
 
-`curl -s -X PUT -d '{"id":"100002", "name":"Canon 728", "partNumber":"728-1", "consumableTypeId":"100001", "resource":"5008"}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/api/consumablemodels/100002`
+`curl -s -X PUT -d '{"id":"100002", "name":"Canon 728", "partNumber":"728-1", "consumableTypeId":"100001", "resource":"5008"}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/api/models/100002`
 
 DELETE ConsumableModel with id 100001: 
 
-`curl -s -X DELETE http://localhost:8080/api/consumablemodels/100001`
+`curl -s -X DELETE http://localhost:8080/api/models/100001`
