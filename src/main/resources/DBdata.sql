@@ -1,4 +1,4 @@
-DELETE FROM user_roles;
+DELETE FROM users_roles;
 DELETE FROM users;
 DELETE FROM facility;
 DELETE FROM room;
@@ -8,6 +8,7 @@ DELETE FROM consumable;
 DELETE FROM consume_fact;
 
 ALTER SEQUENCE users_seq RESTART WITH 100000;
+ALTER SEQUENCE users_roles_seq RESTART WITH 100000;
 ALTER SEQUENCE facility_seq RESTART WITH 100000;
 ALTER SEQUENCE room_seq RESTART WITH 100000;
 ALTER SEQUENCE consumable_type_seq RESTART WITH 100000;
@@ -16,15 +17,15 @@ ALTER SEQUENCE consumable_seq RESTART WITH 100000;
 ALTER SEQUENCE consume_fact_seq RESTART WITH 100000;
 
 INSERT INTO users (name, email, password) VALUES
-  ('User1', 'user1@yandex.ru', '{noop}password'), --100000
-  ('User2', 'user2@yandex.ru', '{noop}password'), --100001
-  ('Admin', 'admin@gmail.com', '{noop}admin');    --100002
+  ('user', 'user1@yandex.ru', '$2a$10$23.P3eLizBkROvHC.IdsNezdusKHow7Uhrhaa0ceVC5degwI2DdXO'), --100000 password
+  ('User2', 'user2@yandex.ru', '$2a$10$23.P3eLizBkROvHC.IdsNezdusKHow7Uhrhaa0ceVC5degwI2DdXO'), --100001 password
+  ('Admin', 'admin@gmail.com', '$2a$10$23.P3eLizBkROvHC.IdsNezdusKHow7Uhrhaa0ceVC5degwI2DdXO'); --100002 password
 
 INSERT INTO users_roles (role, user_id) VALUES
     ('ROLE_USER', 100000),
 		('ROLE_USER', 100001),
 		('ROLE_USER', 100002),
-        ('ROLE_ADMIN', 100002);
+    ('ROLE_ADMIN', 100002);
 
 INSERT INTO facility (name, address) VALUES
 		('1507','Профсоюзная ул. д.132 к.9'),  --100000
@@ -418,26 +419,26 @@ INSERT INTO consumable_model (name, partnumber, consumable_type_id, resource) VA
 		('HP 122XL Color','CH562HE',100007,480);
 
 INSERT INTO consumable (name, contract, price, consumable_model_id, consumable_type_id, room_id, status) VALUES
-		('Canon EP27', 'Поставка весна 2019', 700, 100083, 100000, 100009, 1),
+		('Canon EP27', 'Поставка весна 2019', 700, 100083, 100000, 100009, 2),
 		('Canon EP27', 'Поставка весна 2019', 700, 100083, 100000, 100009, 1),
 		('Canon 725', 'Поставка весна 2019', 620, 100003, 100000, 100009, 2),
 		('Canon 725', 'Поставка весна 2019', 620, 100003, 100000, 100009, 1),
-		('Canon 725', 'Поставка весна 2019', 620, 100003, 100000, 100009, 1),
+		('Canon 725', 'Поставка весна 2019', 620, 100003, 100000, 100009, 2),
+		('HP 36A', 'Поставка весна 2019', 540, 100038, 100000, 100009, 1),
+		('HP 36A', 'Поставка весна 2019', 540, 100038, 100000, 100009, 2),
+		('HP 36A', 'Поставка весна 2019', 540, 100038, 100000, 100009, 1),
 		('HP 36A', 'Поставка весна 2019', 540, 100038, 100000, 100009, 2),
 		('HP 36A', 'Поставка весна 2019', 540, 100038, 100000, 100009, 2),
+		('HP 36A (ошибочно установлен)', 'Поставка весна 2019', 540, 100038, 100000, 100009, 2),
 		('HP 36A', 'Поставка весна 2019', 540, 100038, 100000, 100009, 1),
 		('HP 36A', 'Поставка весна 2019', 540, 100038, 100000, 100009, 1),
-		('HP 36A', 'Поставка весна 2019', 540, 100038, 100000, 100009, 1),
-		('HP 36A', 'Поставка весна 2019', 540, 100038, 100000, 100009, 1),
-		('HP 36A', 'Поставка весна 2019', 540, 100038, 100000, 100009, 1),
-		('HP 36A', 'Поставка весна 2019', 540, 100038, 100000, 100009, 1),
-		('Canon C-EXV14', 'Поставка весна 2019', 900, 100062, 100000, 100009, 2),
+		('Canon C-EXV14', 'Поставка весна 2019', 900, 100062, 100000, 100009, 1),
 		('Canon C-EXV14', 'Поставка весна 2019', 900, 100062, 100000, 100009, 1),
 		('Canon C-EXV14', 'Поставка весна 2019', 900, 100062, 100000, 100009, 1),
 		('Canon C-EXV14', 'Поставка весна 2019', 900, 100062, 100000, 100009, 3),
-		('HP 05X', 'Поставка весна 2019', 750, 100061, 100000, 100009, 2),
-		('HP 05X', 'Поставка весна 2019', 750, 100061, 100000, 100009, 2),
-		('HP 05X', 'Поставка весна 2019', 750, 100061, 100000, 100009, 2),
+		('HP 05X', 'Поставка весна 2019', 750, 100061, 100000, 100009, 1),
+		('HP 05X', 'Поставка весна 2019', 750, 100061, 100000, 100009, 1),
+		('HP 05X', 'Поставка весна 2019', 750, 100061, 100000, 100009, 1),
 		('HP 05X', 'Поставка весна 2019', 750, 100061, 100000, 100009, 1),
 		('HP 05X', 'Поставка весна 2019', 750, 100061, 100000, 100009, 3),
 		('HP 05X', 'Поставка весна 2019', 750, 100061, 100000, 100009, 3),
