@@ -18,6 +18,9 @@ public class ConsumeFact {
     @Column(name = "room_id", nullable = false)
     private Integer roomId;
 
+    @Column(name = "storage_id", nullable = false)
+    private Integer storage_id;
+
     @Column(name = "consumable_id", nullable = false)
     private Integer consumableId;
 
@@ -27,8 +30,9 @@ public class ConsumeFact {
     @Column(name = "date", nullable = false)
     private LocalDate date;
 
-    public ConsumeFact(Integer roomId, Integer consumableId, Integer consumableModelId, LocalDate date) {
+    public ConsumeFact(Integer roomId, Integer storage_id, Integer consumableId, Integer consumableModelId, LocalDate date) {
         this.roomId = roomId;
+        this.storage_id = storage_id;
         this.consumableId = consumableId;
         this.consumableModelId = consumableModelId;
         this.date = date == null ? LocalDate.now() : date;
@@ -41,16 +45,12 @@ public class ConsumeFact {
         return roomId;
     }
 
-    public void setRoomId(Integer roomId) {
-        this.roomId = roomId;
-    }
-
     public Integer getConsumableId() {
         return consumableId;
     }
 
-    public void setConsumableId(Integer consumableId) {
-        this.consumableId = consumableId;
+    public Integer getStorage_id() {
+        return storage_id;
     }
 
     public Integer getConsumableModelId() {
@@ -65,22 +65,15 @@ public class ConsumeFact {
         return date;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     @Override
     public String toString() {
         return "ConsumeFact{" +
                 "roomId=" + roomId +
+                ", storage_id=" + storage_id +
                 ", consumableId=" + consumableId +
                 ", consumableModelId=" + consumableModelId +
                 ", date=" + date +

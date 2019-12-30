@@ -20,7 +20,7 @@ INSERT INTO users (name, email, password) VALUES
   ('User2', 'user2@yandex.ru', '{noop}password'), --100001
   ('Admin', 'admin@gmail.com', '{noop}admin');    --100002
 
-INSERT INTO user_roles (role, user_id) VALUES
+INSERT INTO users_roles (role, user_id) VALUES
     ('ROLE_USER', 100000),
 		('ROLE_USER', 100001),
 		('ROLE_USER', 100002),
@@ -443,11 +443,11 @@ INSERT INTO consumable (name, contract, price, consumable_model_id, consumable_t
 		('HP 05X', 'Поставка весна 2019', 750, 100061, 100000, 100009, 3),
 		('HP 05X', 'Поставка весна 2019', 750, 100061, 100000, 100009, 3);
 		
-		INSERT INTO consume_fact (room_id, consumable_id, consumable_model_id, date) VALUES
-		(100001, 100000, 100083, '2019-05-10'),
-		(100063, 100002, 100003, '2019-05-11'),
-		(100003, 100004, 100003, '2019-05-11'),
-		(100052, 100006, 100038, '2019-05-13'),
-		(100043, 100008, 100038, '2019-06-20'),
-		(100003, 100009, 100038, '2019-06-24'),
-		(100024, 100010, 100038, '2019-06-25');
+		INSERT INTO consume_fact (room_id, storage_id, consumable_id, consumable_model_id, date) VALUES
+		(100001, 100009, 100000, 100083, '2019-05-10'),
+		(100063, 100009, 100002, 100003, '2019-05-11'),
+		(100003, 100009, 100004, 100003, '2019-05-11'),
+		(100052, 100009, 100006, 100038, '2019-05-13'),
+		(100043, 100009, 100008, 100038, '2019-06-20'),
+		(100003, 100009, 100009, 100038, '2019-06-24'),
+		(100024, 100009, 100010, 100038, '2019-06-25');

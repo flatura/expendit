@@ -6,6 +6,7 @@ import code.flatura.expendit.repository.ConsumableRepository;
 import code.flatura.expendit.repository.ConsumeFactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -59,14 +60,14 @@ public class ConsumableService {
         consumableRepository.deleteById(id);
     }
 
+    @Transactional
     public void install(int consuambleId, int roomId) {
         Consumable newConsumable;
         Consumable oldConsumable;
 
         if ((newConsumable = consumableRepository.getOne(consuambleId)) != null) {
 
-            // Забираем старый картридж этой же модели, установленный в указанном кабинете
-            // TODO Учесть возможное наличие нескольких моделей потребителей в одном кабинете
+            // Забираем старый расходник этой же модели, установленный в указанном кабинете
             oldConsumable = consumableRepository.getByRoomId(roomId)
                     .stream()
                     .filter(c -> c.getConsumableModelId().equals(newConsumable.getConsumableModelId()))
@@ -79,10 +80,20 @@ public class ConsumableService {
             if (newConsumable.getStatus() == 1) {
                 newConsumable.setStatus(2);
                 newConsumable.setRoomId(roomId);
+                oldConsumable.setStatus(3);
+                oldConsumable.setRoomId(newConsumable.getRoomId());
+                consumableRepository.save(newConsumable);
+                consumableRepository.save(oldConsumable);
             }
 
             // Создать факт расхода
-            consumeFactRepository.save(new ConsumeFact(roomId, newConsumable.getId(), newConsumable.getConsumableModelId(), LocalDate.now()));
+            consumeFactRepository.save(new ConsumeFact(
+                    roomId,
+                    newConsumable.getRoomId(),
+                    newConsumable.getId(),
+                    newConsumable.getConsumableModelId(),
+                    LocalDate.now())
+            );
         }
     }
 

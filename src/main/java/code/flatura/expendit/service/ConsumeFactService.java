@@ -16,7 +16,6 @@ import java.util.Optional;
 public class ConsumeFactService {
 
     private ConsumeFactRepository consumeFactRepository;
-
     private ConsumableRepository consumableRepository;
 
     @Autowired
@@ -53,16 +52,6 @@ public class ConsumeFactService {
         return consumeFactRepository.findById(id);
     }
 
-    public void save(int id, ConsumeFact updatedConsumeFact) {
-        if (consumeFactRepository.existsById(id)) {
-            consumeFactRepository.save(updatedConsumeFact);
-        }
-    }
-
-    public void delete(int id) {
-        consumeFactRepository.deleteById(id);
-    }
-
     public List<ConsumeFact> getByModelId(int id) {
         return consumeFactRepository.getByModelId(id);
     }
@@ -74,5 +63,18 @@ public class ConsumeFactService {
     public List<ConsumeFact> getBetweenDates(LocalDate startDate, LocalDate endDate) {
         System.out.println("Getting ConsumeFact between " + startDate + " and " + endDate);
         return consumeFactRepository.getBetweenDates(startDate, endDate);
+    }
+
+    // Only allow deleting the mistakenly created ConsumeFact
+    public void delete(int id) {
+        // TODO get rid of .get() and process Optional correctly
+        ConsumeFact fact = consumeFactRepository.findById(id).get();
+        Consumable consumable = consumableRepository.findById(fact.getConsumableId()).get();
+        // If status is IN_USE then set status NEW, return it to the storage and delete fact
+        if (consumable.getStatus() == 2) {
+            consumable.setStatus(1);
+            consumable.setRoomId(fact.getStorage_id());
+            consumeFactRepository.deleteById(id);
+        }
     }
 }

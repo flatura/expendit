@@ -2,9 +2,10 @@ package code.flatura.expendit.model;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import java.io.Serializable;
 
 @MappedSuperclass
-public abstract class AbstractNamedEntity{
+public abstract class AbstractNamedEntity implements Serializable {
 
     @Column(name = "name", nullable = false)
     protected String name;

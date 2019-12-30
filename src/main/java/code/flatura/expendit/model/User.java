@@ -1,7 +1,5 @@
 package code.flatura.expendit.model;
 
-import org.springframework.util.CollectionUtils;
-
 import javax.persistence.*;
 import java.util.*;
 
@@ -27,31 +25,33 @@ public class User extends AbstractNamedEntity {
 
     @Column(name = "registered", nullable = false, columnDefinition = "timestamp default now()")
     private Date registered = new Date();
-
+/*
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
+*/
 
     public User() {
     }
 
     public User(User u) {
-        this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.isEnabled(), u.getRegistered(), u.getRoles());
+        this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.isEnabled(), u.getRegistered()/*, u.getRoles()*/);
     }
 
-    public User(Integer id, String name, String email, String password, Role role, Role... roles) {
-        this(id, name, email, password, true, new Date(), EnumSet.of(role, roles));
+    public User(Integer id, String name, String email, String password/*, Role role, Role... roles*/) {
+        this(id, name, email, password, true, new Date()/*, EnumSet.of(role, roles)*/);
     }
 
-    public User(Integer id, String name, String email, String password, boolean enabled, Date registered, Collection<Role> roles) {
+    public User(Integer id, String name, String email, String password, boolean enabled, Date registered/*, Collection<Role> roles*/) {
         super(id, name);
         this.email = email;
         this.password = password;
         this.enabled = enabled;
         this.registered = registered;
-        setRoles(roles);
+//        setRoles(roles);
+        ;
     }
 
     public String getEmail() {
@@ -81,18 +81,22 @@ public class User extends AbstractNamedEntity {
     public boolean isEnabled() {
         return enabled;
     }
+/*
 
     public Set<Role> getRoles() {
         return roles;
     }
 
+*/
     public String getPassword() {
         return password;
     }
+/*
 
     public void setRoles(Collection<Role> roles) {
         this.roles = CollectionUtils.isEmpty(roles) ? EnumSet.noneOf(Role.class) : EnumSet.copyOf(roles);
     }
+*/
 
     public Integer getId() {
         return id;
@@ -101,11 +105,13 @@ public class User extends AbstractNamedEntity {
     public void setId(Integer id) {
         this.id = id;
     }
+/*
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
+*/
     @Override
     public String toString() {
         return "User{" +
@@ -113,7 +119,7 @@ public class User extends AbstractNamedEntity {
                 ", email=" + email +
                 ", name=" + name +
                 ", enabled=" + enabled +
-                ", roles=" + roles +
+//                ", roles=" + roles +
                 '}';
     }
 
