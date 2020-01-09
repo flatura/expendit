@@ -27,23 +27,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
     }
 
-    /*
-    // Create 2 users for demo
-    @Override
-    protected void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-        //auth.jdbcAuthentication().dataSource(dataSource);
-
-        auth.inMemoryAuthentication()
-                .withUser("user").password("{noop}password").roles("USER")
-                .and()
-                .withUser("admin").password("{noop}password").roles("USER", "ADMIN");
-    }
-*/
-
     // Secure the endpoins with HTTP Basic authentication
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         http
                 //HTTP Basic authentication
                 .httpBasic()
@@ -80,9 +66,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE,"/api/models/**").access("hasRole('ROLE_ADMIN')")
                 .anyRequest().permitAll()
                 .and()
-                //.exceptionHandling().accessDeniedPage("/403")
-                //.and()
-                .csrf().disable()
+                .exceptionHandling().accessDeniedPage("/403")
+                .and()
+                .csrf()
+                .and()
                 .formLogin().disable();
     }
 
