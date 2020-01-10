@@ -35,6 +35,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .authorizeRequests()
+                //Authorization to User API
+                .antMatchers(HttpMethod.GET, "/api/users/**").access("hasRole('ROLE_ADMIN')")
+                .antMatchers(HttpMethod.POST, "/api/users").access("hasRole('ROLE_ADMIN')")
+                .antMatchers(HttpMethod.PUT, "/api/users/**").access("hasRole('ROLE_ADMIN')")
+                .antMatchers(HttpMethod.DELETE, "/api/users/**").access("hasRole('ROLE_ADMIN')")
                 //Authorization to Consumable API
                 .antMatchers(HttpMethod.GET, "/api/consumables/**").access("hasRole('ROLE_USER')")
                 .antMatchers(HttpMethod.POST, "/api/consumables").access("hasRole('ROLE_ADMIN')")
@@ -68,8 +73,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling().accessDeniedPage("/403")
                 .and()
-                .csrf()
-                .and()
+                .csrf().disable()
                 .formLogin().disable();
     }
 

@@ -7,7 +7,29 @@ Admin admin@gmail.com admin
 User1 user1@gmail.com 12345678
 User2 user2@gmail.com 12345678
 
-###### Consumables API: DONE!
+###### Users API
+
+CREATE User: 
+
+`curl -s -X POST -d '{"email":"newuser@mail.ru", "name":"User3", "password": "p@ssw0rD","enabled": "true"}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/api/users -u Admin:password`
+
+GET all Users: 
+
+`curl -s http://localhost:8080/api/users -u Admin:password`
+
+GET User with name admin
+
+`curl -s "http://localhost:8080/api/users/by?name=Admin" -u Admin:password`
+
+UPDATE User with id 100001: 
+
+`curl -s -X PUT -d '{"id":"100001", "name":"User3", "email":"newuser@mail.ru", "password": "p@ssw0rD","enabled": "true", "registered":"2020-01-10T19:39:29.460+0000"}' -H 'Content-Type: application/json' http://localhost:8080/api/users/100001 -u Admin:password`
+
+DELETE User with id 100001: 
+
+`curl -s -X DELETE http://localhost:8080/api/users/100001 -u Admin:password`
+
+###### Consumables API
 
 CREATE Consumable
 
@@ -37,7 +59,7 @@ DELETE Consumable with id 100024:
 
 `curl -s -X DELETE http://localhost:8080/api/consumables/100024 -u admin:password`
 
-###### ConsumeFact API: DONE!
+###### ConsumeFact API
 
 CREATE ConsumeFact
 
@@ -67,7 +89,7 @@ DELETE ConsumeFact with id 100011:
 
 `curl -s -X DELETE http://localhost:8080/api/consumes/100011 -u admin:password`
 
-###### Facility API: DONE!
+###### Facility API
 
 CREATE Facility:
 
@@ -89,7 +111,7 @@ DELETE  with id 100009:
 
 `curl -s -X DELETE http://localhost:8080/api/facilities/100009 -u admin:password`
 
-###### Room API: DONE!
+###### Room API
 
 CREATE Room:
 
@@ -111,7 +133,7 @@ DELETE  with id 100001:
 
 `curl -s -X DELETE http://localhost:8080/api/rooms/100238 -u admin:password`
 
-###### ConsumableType API:
+###### ConsumableType API
 
 CREATE 
 
@@ -133,7 +155,7 @@ DELETE  with id 100024:
 
 `curl -s -X DELETE http://localhost:8080/api/types/100024 -u admin:password`
 
-###### ConsumableModel API:
+###### ConsumableModel API
 
 CREATE ConsumableModel
 
