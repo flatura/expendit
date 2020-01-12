@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/consumablemodels", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/models", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ConsumableModelController {
     private ConsumableModelService consumableModelService;
 
@@ -44,6 +44,12 @@ public class ConsumableModelController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping(value = "/by")
+    public ResponseEntity<List<ConsumableModel>> filter(@RequestParam(name = "typeId", required = false) Integer typeId,
+                                                  @RequestParam(name = "name", required = false) String name) {
+        return new ResponseEntity<>(consumableModelService.filter(typeId, name), HttpStatus.OK);
+    }
+
     @PutMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void update(@PathVariable("id") int id, @RequestBody ConsumableModel updatedConsumableModel) {
@@ -55,6 +61,4 @@ public class ConsumableModelController {
     public void delete(@PathVariable("id") int id) {
         consumableModelService.delete(id);
     }
-
-    //@ResponseStatus(value = HttpStatus.NO_CONTENT)
 }

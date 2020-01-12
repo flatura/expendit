@@ -46,14 +46,11 @@ public class ConsumableController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping(value = "/full")
-    public ResponseEntity<List<Consumable>> getFull() {
-        return new ResponseEntity<>(consumableService.getFull(), HttpStatus.OK);
-    }
-
-    @GetMapping(value = "/room/{roomId}")
-    public ResponseEntity<List<Consumable>> getByRoomId(@PathVariable("roomId") int roomId) {
-        return new ResponseEntity<>(consumableService.getByRoomId(roomId), HttpStatus.OK);
+    @GetMapping(value = "/by")
+    public ResponseEntity<List<Consumable>> getBy(@RequestParam(name = "status", required = false) Integer status,
+                                                  @RequestParam(name = "room", required = false) Integer roomId,
+                                                  @RequestParam(name = "name", required = false) String name) {
+        return new ResponseEntity<>(consumableService.getBy(roomId, status, name), HttpStatus.OK);
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -70,8 +67,8 @@ public class ConsumableController {
 
     @PutMapping
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void install(@RequestParam("consumableId") int consuambleId,
+    public void install(@RequestParam("consumableId") int consumableId,
                         @RequestParam("roomId") int roomId) {
-        consumableService.install(consuambleId, roomId);
+        consumableService.install(consumableId, roomId);
     }
 }

@@ -35,21 +35,27 @@ public class FacilityController {
     }
 
     @GetMapping()
-    public List<Facility> getAll() {
+    public List<Facility> findAll() {
         return facilityService.getAll();
     }
 
-    @GetMapping(value = "{id}")
-    public Optional<Facility> getById(@PathVariable("id") int id) {
+    @GetMapping("/by")
+    public List<Facility> findByName(@RequestParam() String name) {
+        return facilityService.getByName(name);
+    }
+
+    @GetMapping(value = "/{id}")
+    public Optional<Facility> findById(@PathVariable("id") int id) {
         return facilityService.getById(id);
     }
 
-    @PutMapping(value = "{id}")
+
+    @PutMapping(value = "/{id}")
     public void save(@PathVariable("id") int id, @RequestBody() Facility editedFacility) {
         facilityService.update(editedFacility, id);
     }
 
-    @DeleteMapping(value = "{id}")
+    @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") int id) {
         facilityService.delete(id);
     }

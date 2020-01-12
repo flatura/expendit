@@ -24,4 +24,8 @@ public interface ConsumeFactRepository extends JpaRepository<ConsumeFact, Intege
     @Transactional(readOnly = true)
     @Query("SELECT c from ConsumeFact c WHERE c.date BETWEEN :startDate AND :endDate ORDER BY c.date DESC")
     List<ConsumeFact> getBetweenDates(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+
+    @Transactional(readOnly = true)
+    @Query("SELECT c FROM ConsumeFact c WHERE c.roomId = :roomId AND c.consumableModelId = :modelId ORDER BY c.date DESC")
+    List<ConsumeFact> getByRoomIdAndModelid(@Param("roomId") Integer roomId, @Param("modelId")Integer modelId);
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,10 +34,6 @@ public class RoomService {
         return roomRepository.findAll();
     }
 
-    public List<Room> getByFacilityId(int id) {
-        return roomRepository.getByFacilityId(id);
-    }
-
     public Optional<Room> getById(int id) {
         return roomRepository.findById(id);
     }
@@ -50,7 +47,16 @@ public class RoomService {
     @Transactional
     public void delete(int id) {
         // Delete room only if it doesn't have new consumables in it
-        if (consumableRepository.getByRoomId(id).stream().noneMatch(c -> c.getStatus() == 1))
+        if (consumableRepository.findByRoomId(id).stream().noneMatch(c -> c.getStatus() == 1))
             roomRepository.deleteById(id);
+    }
+
+    public List<Room> filter(Integer facilityId, String name) {
+        List<Room> result = new ArrayList<>();
+        String nameLike = "%" + name + "%";
+        if (facilityId != null && name != null) result = roomRepository.filter(facilityId, nameLike);
+        else if (facilityId != null) result = roomRepository.findByFacilityId(facilityId);
+        else if (name != null) result = roomRepository.findByName(nameLike);
+        return result;
     }
 }

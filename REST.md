@@ -41,15 +41,19 @@ GET all Consumables:
 
 GET full Consumables: 
 
-`curl -s http://localhost:8080/api/consumables/full -u admin:password`
+`curl -s "http://localhost:8080/api/consumables/by?status=1" -u user:password`
 
 GET Consumables in Room with id 100009: 
 
-`curl -s http://localhost:8080/api/consumables/room/100009  -u admin:password`
+`curl -s "http://localhost:8080/api/consumables/by?room=100009"  -u user:password`
+
+GET Consumables by name CB435: 
+
+`curl -s "http://localhost:8080/api/consumables/by?name=CB435"  -u user:password`
 
 GET Consumable with id 100024: 
 
-`curl -s http://localhost:8080/api/consumables/100024 -u admin:password`
+`curl -s http://localhost:8080/api/consumables/100024 -u Admin:password`
 
 UPDATE Consumable with id 100024
 
@@ -75,11 +79,11 @@ GET ConsumeFact with id 100011:
 
 GET ConsumeFacts with ConsumeModelId 100038 (there must be 4 entries in result)
 
-`curl -s http://localhost:8080/api/consumes/model/100038 -u user:password`
+`curl -s http://localhost:8080/api/consumes/by?modelId=100038 -u user:password`
 
 GET ConsumeFacts in Room with Id 100003 (there must be 2 entries in result)
 
-`curl -s http://localhost:8080/api/consumes/room/100003 -u user:password`
+`curl -s http://localhost:8080/api/consumes/by?roomId=100003 -u user:password`
 
 GET ConsumeFacts in between 2019-05-10 and 2019-05-11 (there must be 3 entries in result)
 
@@ -103,11 +107,15 @@ GET Facility with id 100001:
 
 `curl -s http://localhost:8080/api/facilities/100001 -u user:password`
 
+GET Facility with name 790: 
+
+`curl -s "http://localhost:8080/api/facilities/by?name=790" -u user:password`
+
 UPDATE Facility with id 100001:
 
 `curl -s -X PUT -d '{"id":"100001", "name":"Facility", "address":"Address2", "comments":"No"}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/api/facilities/100001 -u admin:password`
 
-DELETE  with id 100009: 
+DELETE Facility with id 100009: 
 
 `curl -s -X DELETE http://localhost:8080/api/facilities/100009 -u admin:password`
 
@@ -125,6 +133,14 @@ GET Room with id 100001:
 
 `curl -s http://localhost:8080/api/rooms/100238 -u user:password`
 
+GET Room with name like 43: 
+
+`curl -s http://localhost:8080/api/rooms/by?name=43 -u user:password`
+
+GET Room with facilityId = 100001: 
+
+`curl -s http://localhost:8080/api/rooms/by?facilityId=100001 -u user:password`
+
 UPDATE Room with id 100001:
 
 `curl -s -X PUT -d '{"name":"NewNAME", "facilityId":"100003", "storage":"true", "userId":"100000", "comments":"edited"}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/api/rooms/100238 -u admin:password`
@@ -135,25 +151,25 @@ DELETE  with id 100001:
 
 ###### ConsumableType API
 
-CREATE 
+CREATE Type
 
-`curl -s -X POST -d '{"name":"Canon 728"}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/api/ -u admin:password`
+`curl -s -X POST -d '{"name":"Ink Color Pigment"}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/api/types -u admin:password`
 
-GET all : 
+GET all Type: 
 
 `curl -s http://localhost:8080/api/types -u user:password`
 
-GET  with id 100024: 
+GET Type with id 100024: 
 
-`curl -s http://localhost:8080/api/types/100024 -u user:password`
+`curl -s http://localhost:8080/api/types/100001 -u user:password`
 
-CREATE 
+GET Type with name like Ink: 
 
-`curl -s -X POST -d '{"name":"Canon 728"}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/api/types -u admin:password`
+`curl -s http://localhost:8080/api/types/by?name=ink -u user:password`
 
-DELETE  with id 100024: 
+DELETE Type with id 100024: 
 
-`curl -s -X DELETE http://localhost:8080/api/types/100024 -u admin:password`
+`curl -s -X DELETE http://localhost:8080/api/types/100003 -u admin:password`
 
 ###### ConsumableModel API
 
@@ -168,6 +184,14 @@ GET all ConsumableModels:
 GET ConsumableModel with id 100001: 
 
 `curl -s http://localhost:8080/api/models/100001 -u user:password`
+
+GET ConsumableModel by name: 
+
+`curl -s http://localhost:8080/api/models/by?name=435 -u user:password`
+
+GET ConsumableModel by typeId: 
+
+`curl -s http://localhost:8080/api/models/by?typeId=100001 -u user:password`
 
 UPDATE ConsumableModel with id 100002
 

@@ -71,6 +71,12 @@ public class ConsumeFactController {
         return new ResponseEntity<>(consumeFactService.getByRoomId(roomId), HttpStatus.OK);
     }
 
+    @GetMapping("/by")
+    public ResponseEntity<List<ConsumeFact>> getBy(@RequestParam(name = "modelId", required = false) Integer modelId,
+                                                   @RequestParam(name = "roomId", required = false) Integer roomId) {
+        return new ResponseEntity<>(consumeFactService.getBy(roomId, modelId), HttpStatus.OK);
+    }
+
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") int id) {
         consumeFactService.delete(id);

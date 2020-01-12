@@ -37,9 +37,10 @@ public class RoomController {
         return new ResponseEntity<>(roomService.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/facility/{id}")
-    public ResponseEntity<List<Room>> getByFacility(@PathVariable("id") int id) {
-        return new ResponseEntity<>(roomService.getByFacilityId(id), HttpStatus.OK);
+    @GetMapping("/by")
+    public ResponseEntity<List<Room>> filter(@RequestParam(value = "facilityId", required = false) Integer facilityId,
+                                             @RequestParam(value = "name", required = false) String name) {
+        return new ResponseEntity<>(roomService.filter(facilityId, name), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

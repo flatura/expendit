@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -76,5 +77,13 @@ public class ConsumeFactService {
             consumable.setRoomId(fact.getStorage_id());
             consumeFactRepository.deleteById(id);
         }
+    }
+
+    public List<ConsumeFact> getBy(Integer roomId, Integer modelId) {
+        List<ConsumeFact> result = new ArrayList<>();
+        if (roomId != null && modelId != null ) result = consumeFactRepository.getByRoomIdAndModelid(roomId, modelId);
+        else if (roomId != null) result = consumeFactRepository.getByRoomId(roomId);
+        else if (modelId != null) result = consumeFactRepository.getByModelId(modelId);
+        return result;
     }
 }

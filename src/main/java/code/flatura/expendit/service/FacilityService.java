@@ -48,4 +48,8 @@ public class FacilityService {
     public void delete(int id) {
         facilityRepository.deleteById(id);
     }
+
+    public List<Facility> getByName(String name) {
+        return facilityRepository.findByName("%" + name + "%");
+    }
 }

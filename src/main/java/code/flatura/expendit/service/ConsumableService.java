@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,10 +46,6 @@ public class ConsumableService {
         return consumableRepository.findById(id);
     }
 
-    public List<Consumable> getFull() {
-        return consumableRepository.getFull();
-    }
-
     public void update(Consumable consumable, int id) {
         if (consumable.getId() == null || consumableRepository.existsById(id))
         {
@@ -68,7 +65,7 @@ public class ConsumableService {
         if ((newConsumable = consumableRepository.getOne(consuambleId)) != null) {
 
             // Забираем старый расходник этой же модели, установленный в указанном кабинете
-            oldConsumable = consumableRepository.getByRoomId(roomId)
+            oldConsumable = consumableRepository.findByRoomId(roomId)
                     .stream()
                     .filter(c -> c.getConsumableModelId().equals(newConsumable.getConsumableModelId()))
                     .findFirst()
@@ -97,7 +94,17 @@ public class ConsumableService {
         }
     }
 
-    public List<Consumable> getByRoomId(int roomId) {
-        return consumableRepository.getByRoomId(roomId);
+    // TODO Reduce complexity
+    public List<Consumable> getBy(Integer roomId, Integer status, String name) {
+        List<Consumable> result = new ArrayList<>();
+        if (roomId != null && status != null) result = consumableRepository.findByRoomIdAndStatus(roomId, status);
+        else if (roomId != null) result = consumableRepository.findByRoomId(roomId);
+        else if (status != null) result = consumableRepository.findByStatus(status);
+        if (name != null) {
+            List<Consumable> listByName = consumableRepository.findByName("%" + name + "%");
+            if (result.size() == 0) result = listByName;
+            else result.retainAll(listByName);
+        }
+        return result;
     }
 }
