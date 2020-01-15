@@ -51,12 +51,10 @@ public class ConsumeFactController {
     public ResponseEntity<List<ConsumeFact>> getBetween(
             @Valid @RequestParam(name = "startDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @Valid @RequestParam(name = "endDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-        System.out.println(startDate);
-        System.out.println(endDate);
         return new ResponseEntity<>(
                 consumeFactService.getBetweenDates(
-                    startDate,// == null ? LocalDate.MIN : startDate,
-                    endDate),// == null ? LocalDate.MAX : endDate),
+                    startDate,
+                    endDate),
                     HttpStatus.OK);
     }
 
