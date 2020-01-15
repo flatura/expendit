@@ -200,3 +200,17 @@ UPDATE ConsumableModel with id 100002
 DELETE ConsumableModel with id 100001: 
 
 `curl -s -X DELETE http://localhost:8080/api/models/100001 -u admin:password`
+
+###### Statistics API
+
+GET Consume counts between 2019-05-10 and 2019-05-11 (there must be 2 entries in result)
+
+`curl -s "http://localhost:8080/api/stats/summary?startDate=2019-05-10&endDate=2019-05-11" -u user:password`
+
+GET Summary consume counts (there must be 3 entries in result)
+
+`curl -s "http://localhost:8080/api/stats/summary" -u user:password`
+
+GET Summary amount of available consumables at storages
+
+`curl -s "http://localhost:8080/api/stats/available" -u user:password`
