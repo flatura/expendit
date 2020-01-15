@@ -1,19 +1,19 @@
 # ExpendIt - микросервис учета расходников
-* Разработка: [Дмитрий Flatura Морозов](mailto://flatura@gmail.com) 2020 год
+* Developer: [Dmitry Flatura Morozov](mailto://flatura@gmail.com) 2019
 ## Documentation
 ### Development goal
-* Отработка навыков, приобретенных на курсе [TopJava](http://javaops.ru/view/topjava); 
-* Высвобождение временного ресурса небольшой команды ServiceDesk в образовательном учреждении за счет автоматизации рутинных задач учета расходников; 
-* Оптимизация процесса определения объемов закупаемых расходников. 
+* Testing the skills, achieved on [TopJava](http://javaops.ru/view/topjava) online course; 
+* Freeing time resource for a school ServiceDesk team by automating consumables registration; 
+* Optimization of consumables buying process.
 
 ### Service tasks
-* Хранение и предоставление информации по местонахождению и объему остатков расходников;  
-* Учет расхода и предоставление статистических данных по расходу;
+* Managing of amount and storage place information for all the consumables;  
+* Accounting of consume and statistics delivering.
 
 ### Features
-* Авторизация пользователей с разделением на роли ADMIN(всё) и USER(только просмотр баланса и внесение нового расхода);
-* RESTful API для работы frontend'а с сервисом;
-* Поддержка PostgreSQL и HSQLDB (скрипты схемы и популирования в комплекте) с переключением через maven-профили;
+* User authorization with ADMIN and USER roles. User management;
+* Useful RESTful API end points for flexible frontend developing;
+* Both PostgreSQL and HSQLDB compatible with Maven-profiles switching. Schema and populating scripts included.
 
 ### Stack
 * Java 9
@@ -23,7 +23,7 @@
 * Spring Data JPA
 * Spring Security
 * PostgreSQL / HSQLDB
-* Maven/Spring profiles
+* Maven profiles
 * REST API
 
 ### REST-API documentation
