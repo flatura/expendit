@@ -1,32 +1,13 @@
 package code.flatura.expendit.model;
 
-import java.util.Arrays;
-import java.util.Optional;
+import org.springframework.security.core.GrantedAuthority;
 
-public enum Role{
-    /*
-    USER("ROLE_USER"),
-    ADMIN("ROLE_ADMIN"),
-    VIEWER("ROLE_VIEWER");
-*/
-    USER("USER"),
-    ADMIN("ADMIN"),
-    VIEWER("VIEWER");
+public enum Role implements GrantedAuthority {
+    ROLE_USER,
+    ROLE_ADMIN;
 
-    private String text;
-
-    Role(String text) {
-        this.text = text;
-    }
-
-    public String getText() {
-        return this.text;
-    }
-
-    public static Optional<Role> fromText(String text) {
-        return  Arrays.stream(values())
-                .filter(r -> r.text.equalsIgnoreCase(text))
-                .findFirst();
+    @Override
+    public String getAuthority() {
+        return name();
     }
 }
-

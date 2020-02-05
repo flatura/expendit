@@ -1,6 +1,7 @@
 package code.flatura.expendit.model;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.*;
 
 import static code.flatura.expendit.util.Util.START_SEQ;
@@ -24,34 +25,40 @@ public class User extends AbstractNamedEntity {
     private boolean enabled = true;
 
     @Column(name = "registered", nullable = false, columnDefinition = "timestamp default now()")
-    private Date registered = new Date();
-/*
+    private LocalDate registered;
+
     @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @CollectionTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
-*/
 
     public User() {
     }
 
     public User(User u) {
-        this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.isEnabled(), u.getRegistered()/*, u.getRoles()*/);
+        this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.isEnabled(), u.getRegistered(), u.roles);
     }
 
-    public User(Integer id, String name, String email, String password/*, Role role, Role... roles*/) {
-        this(id, name, email, password, true, new Date()/*, EnumSet.of(role, roles)*/);
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public User(Integer id, String name, String email, String password, boolean enabled, Date registered/*, Collection<Role> roles*/) {
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public User(Integer id, String name, String email, String password, Set<Role> roles) {
+        this(id, name, email, password, true, LocalDate.now(), roles);
+    }
+
+    public User(Integer id, String name, String email, String password, boolean enabled, LocalDate registered, Set<Role> roles) {
         super(id, name);
         this.email = email;
         this.password = password;
         this.enabled = enabled;
         this.registered = registered;
-//        setRoles(roles);
-        ;
+        this.roles = roles;
     }
 
     public String getEmail() {
@@ -66,11 +73,11 @@ public class User extends AbstractNamedEntity {
         this.password = password;
     }
 
-    public Date getRegistered() {
+    public LocalDate getRegistered() {
         return registered;
     }
 
-    public void setRegistered(Date registered) {
+    public void setRegistered(LocalDate registered) {
         this.registered = registered;
     }
 
@@ -81,22 +88,10 @@ public class User extends AbstractNamedEntity {
     public boolean isEnabled() {
         return enabled;
     }
-/*
 
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-*/
     public String getPassword() {
         return password;
     }
-/*
-
-    public void setRoles(Collection<Role> roles) {
-        this.roles = CollectionUtils.isEmpty(roles) ? EnumSet.noneOf(Role.class) : EnumSet.copyOf(roles);
-    }
-*/
 
     public Integer getId() {
         return id;
@@ -105,22 +100,17 @@ public class User extends AbstractNamedEntity {
     public void setId(Integer id) {
         this.id = id;
     }
-/*
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
-
-*/
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", email=" + email +
-                ", name=" + name +
+                ", email='" + email + '\'' +
                 ", enabled=" + enabled +
-//                ", roles=" + roles +
-                '}';
+                ", registered=" + registered +
+                ", roles=" + roles +
+                ", name='" + name + '\'' +
+                "} " + super.toString();
     }
 
     @Override
