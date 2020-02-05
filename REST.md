@@ -23,7 +23,7 @@ GET User with name admin
 
 UPDATE User with id 100001: 
 
-`curl -s -X PUT -d '{"id":"100001", "name":"User3", "email":"newuser@mail.ru", "password": "p@ssw0rD","enabled": "true", "registered":"2020-01-10T19:39:29.460+0000"}' -H 'Content-Type: application/json' http://localhost:8080/api/users/100001 -u Admin:password`
+`curl -s -X PUT -d '{"id":"100001", "name":"User3", "email":"newuser@mail.ru", "password": "p@ssw0rD","enabled": "true", "registered":"2020-01-10"}' -H 'Content-Type: application/json' http://localhost:8080/api/users/100001 -u Admin:password`
 
 DELETE User with id 100001: 
 
