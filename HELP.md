@@ -1,4 +1,4 @@
-# ExpendIt - микросервис учета расходников
+# ExpendIt - consumables accounting microservice
 * Developer: [Dmitry Flatura Morozov](mailto://flatura@gmail.com) 2019
 ## Documentation
 ### Development goal
