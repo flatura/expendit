@@ -68,29 +68,4 @@ public class ConsumeFact {
     public Integer getId() {
         return id;
     }
-
-    @Override
-    public String toString() {
-        return "ConsumeFact{" +
-                "roomId=" + roomId +
-                ", storage_id=" + storage_id +
-                ", consumableId=" + consumableId +
-                ", consumableModelId=" + consumableModelId +
-                ", date=" + date +
-                "} " + super.toString();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        ConsumeFact that = (ConsumeFact) o;
-        return id.equals(that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), id);
-    }
 }

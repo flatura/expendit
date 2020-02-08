@@ -60,35 +60,4 @@ public class ConsumableModel extends AbstractNamedEntity {
     public void setResource(Integer resource) {
         this.resource = resource;
     }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        ConsumableModel that = (ConsumableModel) o;
-        return partNumber.equals(that.partNumber);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), partNumber);
-    }
-
-    @Override
-    public String toString() {
-        return "ConsumableModel{" +
-                "partNumber='" + partNumber + '\'' +
-                ", ConsumableTypeId=" + consumableTypeId +
-                ", resource=" + resource +
-                "} " + super.toString();
-    }
 }

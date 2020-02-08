@@ -32,32 +32,4 @@ public class ConsumableType extends AbstractNamedEntity {
     public void setComments(String comments) {
         this.comments = comments;
     }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    @Override
-    public String toString() {
-        return "ConsumableType{" +
-                "comments='" + comments + '\'' +
-                "} " + super.toString();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ConsumableType that = (ConsumableType) o;
-        return id.equals(that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 }

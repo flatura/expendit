@@ -1,6 +1,7 @@
 package code.flatura.expendit.service;
 
 import code.flatura.expendit.model.Consumable;
+import code.flatura.expendit.model.ConsumableStatus;
 import code.flatura.expendit.model.ConsumeFact;
 import code.flatura.expendit.repository.ConsumableRepository;
 import code.flatura.expendit.repository.ConsumeFactRepository;
@@ -72,8 +73,8 @@ public class ConsumeFactService {
         ConsumeFact fact = consumeFactRepository.findById(id).get();
         Consumable consumable = consumableRepository.findById(fact.getConsumableId()).get();
         // If status is IN_USE then set status NEW, return it to the storage and delete fact
-        if (consumable.getStatus() == 2) {
-            consumable.setStatus(1);
+        if (consumable.getStatus() == ConsumableStatus.INWORK) {
+            consumable.setStatus(ConsumableStatus.NEW);
             consumable.setRoomId(fact.getStorage_id());
             consumeFactRepository.deleteById(id);
         }

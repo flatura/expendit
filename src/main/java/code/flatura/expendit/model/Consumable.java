@@ -27,12 +27,12 @@ public class Consumable extends AbstractNamedEntity {
     private Integer consumableModelId;
 
     @Column(name = "status")
-    private Integer status;
+    private ConsumableStatus status;
 
     @Column(name = "room_id")
     private Integer roomId;
 
-    public Consumable(String contract, Integer price, Integer consumableTypeId, Integer consumableModelId, Integer status, Integer roomId) {
+    public Consumable(String contract, Integer price, Integer consumableTypeId, Integer consumableModelId, ConsumableStatus status, Integer roomId) {
         this.contract = contract;
         this.price = price;
         this.consumableTypeId = consumableTypeId;
@@ -41,7 +41,7 @@ public class Consumable extends AbstractNamedEntity {
         this.roomId = roomId;
     }
 
-    public Consumable(int id, String contract, Integer price, Integer consumableTypeId, Integer consumableModelId, Integer status, Integer roomId) {
+    public Consumable(int id, String contract, Integer price, Integer consumableTypeId, Integer consumableModelId, ConsumableStatus  status, Integer roomId) {
         this(contract, price, consumableTypeId, consumableModelId, status, roomId);
         this.id = id;
     }
@@ -81,11 +81,11 @@ public class Consumable extends AbstractNamedEntity {
         this.consumableModelId = consumableModelId;
     }
 
-    public Integer getStatus() {
+    public ConsumableStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(ConsumableStatus status) {
         this.status = status;
     }
 
@@ -95,26 +95,5 @@ public class Consumable extends AbstractNamedEntity {
 
     public void setRoomId(Integer roomId) {
         this.roomId = roomId;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Consumable that = (Consumable) o;
-        return id.equals(that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 }

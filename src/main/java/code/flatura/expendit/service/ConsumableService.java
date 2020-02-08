@@ -1,6 +1,7 @@
 package code.flatura.expendit.service;
 
 import code.flatura.expendit.model.Consumable;
+import code.flatura.expendit.model.ConsumableStatus;
 import code.flatura.expendit.model.ConsumeFact;
 import code.flatura.expendit.repository.ConsumableRepository;
 import code.flatura.expendit.repository.ConsumeFactRepository;
@@ -63,34 +64,33 @@ public class ConsumableService {
         Consumable oldConsumable;
 
         if ((newConsumable = consumableRepository.getOne(consuambleId)) != null) {
-
-            // Забираем старый расходник этой же модели, установленный в указанном кабинете
-            oldConsumable = consumableRepository.findByRoomId(roomId)
-                    .stream()
-                    .filter(c -> c.getConsumableModelId().equals(newConsumable.getConsumableModelId()))
-                    .findFirst()
-                    .orElseGet(null);
-            if (oldConsumable != null) oldConsumable.setRoomId(newConsumable.getRoomId());
-
             // Меняем статус выбранного расходника с Новый на В работе и устанавливаем его в кабинет
-            //TODO Сделать Status enum'ом
-            if (newConsumable.getStatus() == 1) {
-                newConsumable.setStatus(2);
+            if (newConsumable.getStatus() == ConsumableStatus.NEW) {
+                newConsumable.setStatus(ConsumableStatus.INWORK);
                 newConsumable.setRoomId(roomId);
-                oldConsumable.setStatus(3);
-                oldConsumable.setRoomId(newConsumable.getRoomId());
+                // Забираем старый расходник этой же модели, установленный в указанном кабинете
+                oldConsumable = consumableRepository.findByRoomId(roomId)
+                        .stream()
+                        .filter(c -> c.getConsumableModelId().equals(newConsumable.getConsumableModelId()))
+                        .filter(c -> c.getStatus() == ConsumableStatus.INWORK)
+                        .findFirst()
+                        .orElseGet(null);
+                if (oldConsumable != null) {
+                    oldConsumable.setRoomId(newConsumable.getRoomId());
+                    oldConsumable.setStatus(ConsumableStatus.EMPTY);
+                    oldConsumable.setRoomId(newConsumable.getRoomId());
+                    consumableRepository.save(oldConsumable);
+                }
                 consumableRepository.save(newConsumable);
-                consumableRepository.save(oldConsumable);
+                // Создать факт расхода
+                consumeFactRepository.save(new ConsumeFact(
+                        roomId,
+                        newConsumable.getRoomId(),
+                        newConsumable.getId(),
+                        newConsumable.getConsumableModelId(),
+                        LocalDate.now())
+                );
             }
-
-            // Создать факт расхода
-            consumeFactRepository.save(new ConsumeFact(
-                    roomId,
-                    newConsumable.getRoomId(),
-                    newConsumable.getId(),
-                    newConsumable.getConsumableModelId(),
-                    LocalDate.now())
-            );
         }
     }
 

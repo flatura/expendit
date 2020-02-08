@@ -1,5 +1,6 @@
 package code.flatura.expendit.service;
 
+import code.flatura.expendit.model.ConsumableStatus;
 import code.flatura.expendit.model.Room;
 import code.flatura.expendit.repository.ConsumableRepository;
 import code.flatura.expendit.repository.RoomRepository;
@@ -46,8 +47,8 @@ public class RoomService {
 
     @Transactional
     public void delete(int id) {
-        // Delete room only if it doesn't have new consumables in it
-        if (consumableRepository.findByRoomId(id).stream().noneMatch(c -> c.getStatus() == 1))
+        // Delete room only if it doesn't have new consumables in it TODO maybe any of type?
+        if (consumableRepository.findByRoomId(id).stream().noneMatch(c -> c.getStatus() == ConsumableStatus.NEW))
             roomRepository.deleteById(id);
     }
 

@@ -5,7 +5,7 @@ import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 
 @MappedSuperclass
-public abstract class AbstractNamedEntity implements Serializable {
+public abstract class AbstractNamedEntity extends AbstractBaseEntity implements Serializable {
 
     @Column(name = "name", nullable = false)
     protected String name;

@@ -73,38 +73,4 @@ public class Room extends AbstractNamedEntity {
     public void setComments(String comments) {
         this.comments = comments;
     }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    @Override
-    public String toString() {
-        return "Room{" +
-                "title='" + name + '\'' +
-                ", facilityId=" + facilityId +
-                ", storage=" + storage +
-                ", userId=" + userId +
-                ", comments='" + comments + '\'' +
-                "} " + super.toString();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        Room room = (Room) o;
-        return facilityId == room.facilityId &&
-                name.equals(room.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), name, facilityId);
-    }
 }
