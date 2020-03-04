@@ -1,4 +1,4 @@
-package code.flatura.expendit.web;
+package code.flatura.expendit.webapi;
 
 import code.flatura.expendit.model.ConsumableType;
 import code.flatura.expendit.service.ConsumableTypeService;

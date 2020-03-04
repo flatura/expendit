@@ -1,4 +1,4 @@
-package code.flatura.expendit.web;
+package code.flatura.expendit.webapi;
 
 import code.flatura.expendit.model.StatisticsEntry;
 import code.flatura.expendit.service.StatisticsService;
@@ -38,6 +38,8 @@ public class StatisticsController {
 
     @GetMapping("/available")
     public ResponseEntity<List<StatisticsEntry>> getAvailableAmountOfConsumables(@RequestParam(name = "id", required = false) Integer id) {
-        return new ResponseEntity<>(statisticsService.getAvailableAmountOfConsumables(id), HttpStatus.OK);
+        if (id.equals(0)) {
+            return new ResponseEntity<>(statisticsService.getAvailableAmountOfAllConsumables(), HttpStatus.OK);
+        } else return new ResponseEntity<>(statisticsService.getAvailableAmountOfConsumableById(id), HttpStatus.OK);
     }
 }
