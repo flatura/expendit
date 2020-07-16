@@ -15,7 +15,7 @@
     <description>Spring Boot consumables management</description>
 
     <properties>
-        <java.version>9</java.version>
+        <java.version>1.8</java.version>
         <spring-security.version>5.1.5.RELEASE</spring-security.version>
     </properties>
 

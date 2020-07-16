@@ -68,7 +68,7 @@ public class WebViewController {
                     ConsumableStatus.NEW,
                     resultDto.getRoomId()));
         }
-        return "home";
+        return "balance";
     }
 
     // Внесение расхода
@@ -91,7 +91,7 @@ public class WebViewController {
     public String addConsumeSubmit(FormInstallConsumableDto resultDto) {
         List<Consumable> result = consumableService.installMany(resultDto.getModel_id(), resultDto.getCount_to_install(), resultDto.getRoom_id());
         System.out.println("!!! Установлено " + result.size() + " картриджей модели " + result.get(0).getConsumableModelId());
-        return "home";
+        return "balance";
     }
 
     //Просмотр статистики расхода по моделям
