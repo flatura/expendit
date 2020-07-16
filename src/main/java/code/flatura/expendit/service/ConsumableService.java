@@ -5,10 +5,12 @@ import code.flatura.expendit.model.ConsumableStatus;
 import code.flatura.expendit.model.ConsumeFact;
 import code.flatura.expendit.repository.ConsumableRepository;
 import code.flatura.expendit.repository.ConsumeFactRepository;
+import code.flatura.expendit.repository.StatisticsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,24 +22,18 @@ public class ConsumableService {
     private ConsumableRepository consumableRepository;
     private ConsumeFactRepository consumeFactRepository;
 
-    public ConsumableService(ConsumableRepository consumableRepository) {
-        this.consumableRepository = consumableRepository;
-    }
-
     public ConsumableService() {
     }
 
     @Autowired
-    public void setConsumableRepository(ConsumableRepository consumableRepository) {
+    public ConsumableService(ConsumableRepository consumableRepository, ConsumeFactRepository consumeFactRepository) {
         this.consumableRepository = consumableRepository;
-    }
-
-    @Autowired
-    public void setConsumeFactRepository(ConsumeFactRepository consumeFactRepository) {
         this.consumeFactRepository = consumeFactRepository;
     }
 
-    public Consumable create(Consumable newConsumable) {return consumableRepository.save(newConsumable);}
+    public Consumable create(Consumable newConsumable) {
+        return consumableRepository.save(newConsumable);
+    }
 
     public List<Consumable> getAll() {
         return consumableRepository.findAll();
@@ -59,28 +55,14 @@ public class ConsumableService {
     }
 
     @Transactional
-    public void install(int consuambleId, int roomId) {
+    public void installOne(int consumableId, int roomId) {
         Consumable newConsumable;
-        Consumable oldConsumable;
 
-        if ((newConsumable = consumableRepository.getOne(consuambleId)) != null) {
+        if ((consumableId != 0) && (newConsumable = consumableRepository.getOne(consumableId)) != null) {
             // Меняем статус выбранного расходника с Новый на В работе и устанавливаем его в кабинет
             if (newConsumable.getStatus() == ConsumableStatus.NEW) {
-                newConsumable.setStatus(ConsumableStatus.INWORK);
+                newConsumable.setStatus(ConsumableStatus.EMPTY);
                 newConsumable.setRoomId(roomId);
-                // Забираем старый расходник этой же модели, установленный в указанном кабинете
-                oldConsumable = consumableRepository.findByRoomId(roomId)
-                        .stream()
-                        .filter(c -> c.getConsumableModelId().equals(newConsumable.getConsumableModelId()))
-                        .filter(c -> c.getStatus() == ConsumableStatus.INWORK)
-                        .findFirst()
-                        .orElseGet(null);
-                if (oldConsumable != null) {
-                    oldConsumable.setRoomId(newConsumable.getRoomId());
-                    oldConsumable.setStatus(ConsumableStatus.EMPTY);
-                    oldConsumable.setRoomId(newConsumable.getRoomId());
-                    consumableRepository.save(oldConsumable);
-                }
                 consumableRepository.save(newConsumable);
                 // Создать факт расхода
                 consumeFactRepository.save(new ConsumeFact(
@@ -92,6 +74,56 @@ public class ConsumableService {
                 );
             }
         }
+    }
+
+    @Transactional
+    public List<Consumable> installMany(int consumableModelId, int count, int destinationRoom) {
+        List<Consumable> installedConsumableList = new ArrayList<>();
+        if (count > 0) {
+            for (int i = 0; i < count; i++) {
+                Optional<Consumable> activeConsumable = consumableRepository.findFirstByConsumableModelIdAndStatus(consumableModelId, ConsumableStatus.NEW);
+                if (activeConsumable.isPresent()) {
+                    activeConsumable.get().setRoomId(destinationRoom);
+                    activeConsumable.get().setStatus(ConsumableStatus.INWORK);
+                    consumeFactRepository.save(new ConsumeFact(
+                                    destinationRoom,
+                                    activeConsumable.get().getRoomId(),
+                                    activeConsumable.get().getId(),
+                                    activeConsumable.get().getConsumableModelId(),
+                                    LocalDate.now()));
+                    installedConsumableList.add(activeConsumable.get());
+                    consumableRepository.save(activeConsumable.get());
+                    // TODO Поиск и выставление статуса EMPTY у расходников из destinationRoom
+                    consumableRepository.flush();
+                    consumeFactRepository.flush();
+                }
+            }
+        }
+        return installedConsumableList;
+/*
+        //Проверяем, есть ли нужное количество на складах
+        if (count <= statisticsRepository.getAmountOfConsumable(consumableModelId, ConsumableStatus.NEW).getCount()) {
+        //Находим нужное число FULL
+            List<Consumable> consumableList = consumableRepository.findByModelIdWithLimit(consumableModelId, count);
+            for (Consumable c : consumableList) {
+                //Создаем факт расхода
+                consumeFactRepository.save(new ConsumeFact(
+                        roomId,
+                        c.getRoomId(),
+                        c.getId(),
+                        c.getConsumableModelId(),
+                        LocalDate.now())
+                );
+                //Для каждого ставим EMPTY + меняем кабинет
+                c.setStatus(ConsumableStatus.EMPTY);
+                //Меняем комнату
+                c.setRoomId(roomId);
+
+            }
+            consumableRepository.flush();
+            consumeFactRepository.flush();
+*/
+            //Сохранем в БД
     }
 
     // TODO Reduce complexity

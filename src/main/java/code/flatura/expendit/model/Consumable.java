@@ -7,21 +7,21 @@ import static code.flatura.expendit.util.Util.START_SEQ;
 
 @Entity
 @Table(name = "consumable")
-public class Consumable extends AbstractNamedEntity {
+public class Consumable {//extends AbstractNamedEntity {
 
     @Id
     @SequenceGenerator(name = "consumable_seq", sequenceName = "consumable_seq", allocationSize = 1, initialValue = START_SEQ)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "consumable_seq")
     private Integer id;
 
+    @Column(name = "name")
+    private String name;
+
     @Column(name = "contract")
     private String contract;
 
     @Column(name = "price")
     private Integer price;
-
-    @Column(name = "consumable_type_id")
-    private Integer consumableTypeId;
 
     @Column(name = "consumable_model_id")
     private Integer consumableModelId;
@@ -32,18 +32,13 @@ public class Consumable extends AbstractNamedEntity {
     @Column(name = "room_id")
     private Integer roomId;
 
-    public Consumable(String contract, Integer price, Integer consumableTypeId, Integer consumableModelId, ConsumableStatus status, Integer roomId) {
+    public Consumable(String name, String contract, Integer price, Integer consumableModelId, ConsumableStatus status, Integer roomId) {
+        this.name = name;
         this.contract = contract;
         this.price = price;
-        this.consumableTypeId = consumableTypeId;
         this.consumableModelId = consumableModelId;
         this.status = status;
         this.roomId = roomId;
-    }
-
-    public Consumable(int id, String contract, Integer price, Integer consumableTypeId, Integer consumableModelId, ConsumableStatus  status, Integer roomId) {
-        this(contract, price, consumableTypeId, consumableModelId, status, roomId);
-        this.id = id;
     }
 
     public Consumable() {
@@ -63,14 +58,6 @@ public class Consumable extends AbstractNamedEntity {
 
     public void setPrice(Integer price) {
         this.price = price;
-    }
-
-    public Integer getConsumableTypeId() {
-        return consumableTypeId;
-    }
-
-    public void setConsumableTypeId(Integer consumableTypeId) {
-        this.consumableTypeId = consumableTypeId;
     }
 
     public Integer getConsumableModelId() {
@@ -95,5 +82,21 @@ public class Consumable extends AbstractNamedEntity {
 
     public void setRoomId(Integer roomId) {
         this.roomId = roomId;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

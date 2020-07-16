@@ -69,6 +69,6 @@ public class ConsumableController {
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void install(@RequestParam("consumableId") int consumableId,
                         @RequestParam("roomId") int roomId) {
-        consumableService.install(consumableId, roomId);
+        consumableService.installOne(consumableId, roomId);
     }
 }

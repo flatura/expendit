@@ -13,7 +13,7 @@ public abstract class AbstractNamedEntity extends AbstractBaseEntity implements 
     protected AbstractNamedEntity() {
     }
 
-    protected AbstractNamedEntity(Integer id, String name) {
+    protected AbstractNamedEntity(String name) {
         this.name = name;
     }
 
