@@ -10,12 +10,12 @@
     </parent>
     <groupId>code.flatura</groupId>
     <artifactId>expendit</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.9.0</version>
     <name>expendit</name>
     <description>Spring Boot consumables management</description>
 
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>9</java.version>
         <spring-security.version>5.1.5.RELEASE</spring-security.version>
     </properties>
 
