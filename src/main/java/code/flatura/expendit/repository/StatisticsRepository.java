@@ -1,5 +1,6 @@
 package code.flatura.expendit.repository;
 
+import code.flatura.expendit.model.ConsumableStatus;
 import code.flatura.expendit.model.StatisticsEntry;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -31,7 +32,7 @@ public interface StatisticsRepository extends JpaRepository<StatisticsEntry, Int
     @Transactional(readOnly = true)
     @Query( "SELECT new StatisticsEntry(m.id, m.name, count(c.id))" +
             "FROM Consumable c, ConsumableModel m " +
-            "WHERE m.id = c.consumableModelId AND m.id = :id AND c.status = 1 " +
+            "WHERE m.id = c.consumableModelId AND m.id = :id AND c.status = :status " +
             "GROUP BY m.name, m.id" )
-    List<StatisticsEntry> getAvailableAmountOfConsumableByModelId(@Param("id") Integer id);
+    StatisticsEntry getAmountOfConsumable(@Param("id") Integer modelId, @Param("status") ConsumableStatus status);
 }

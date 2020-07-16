@@ -36,19 +36,13 @@ public class ConsumeFactService {
 
     @Transactional
     public ConsumeFact create(ConsumeFact newConsumeFact) {
-        // Картридж с указанным id и статусом Новый пометить, как В работе (изменить статус)
-        consumableRepository.install(newConsumeFact.getConsumableId(), newConsumeFact.getRoomId());
-        Consumable installedConsumable = consumableRepository.getOne(newConsumeFact.getConsumableId());
-        newConsumeFact.setConsumableModelId(installedConsumable.getConsumableTypeId());
         // Добавить экземпляр ConsumeFact с информацией о модели картриджа, id-расходника, кабинета в таблицу БД
         return consumeFactRepository.save(newConsumeFact);
     }
 
-
     public List<ConsumeFact> getAll() {
         return consumeFactRepository.findAll();
     }
-
 
     public Optional<ConsumeFact> getById(int id) {
         return consumeFactRepository.findById(id);

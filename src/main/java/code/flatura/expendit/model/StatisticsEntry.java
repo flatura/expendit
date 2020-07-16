@@ -10,11 +10,25 @@ public class StatisticsEntry {
     private Integer id;
     private String name;
     private Long count;
+    private Double dcount;
+
+    public StatisticsEntry(Integer id, String name, Long count, Double dcount) {
+        this.id = id;
+        this.name = name;
+        this.count = count;
+        this.dcount = dcount;
+    }
 
     public StatisticsEntry(Integer id, String name, Long count) {
         this.id = id;
         this.name = name;
         this.count = count;
+    }
+
+    public StatisticsEntry(Integer id, String name, Double dcount) {
+        this.id = id;
+        this.name = name;
+        this.dcount = dcount;
     }
 
     public Integer getId() {
@@ -39,5 +53,13 @@ public class StatisticsEntry {
 
     public void setCount(Long count) {
         this.count = count;
+    }
+
+    public Double getDcount() {
+        return dcount;
+    }
+
+    public void setDcount(Double dcount) {
+        this.dcount = dcount;
     }
 }

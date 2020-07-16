@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-public interface ConsumableModelRepository extends JpaRepository<ConsumableModel, Integer> {
+public interface ModelRepository extends JpaRepository<ConsumableModel, Integer> {
     @Transactional(readOnly = true)
     @Query("SELECT c FROM ConsumableModel c WHERE c.consumableTypeId = :typeId AND c.name LIKE :name ORDER BY c.name DESC")
     List<ConsumableModel> findByTypeAndName(@Param(value = "typeId") int typeId, @Param(value = "name") String name);

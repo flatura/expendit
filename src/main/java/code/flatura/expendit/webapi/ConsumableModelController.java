@@ -1,7 +1,7 @@
 package code.flatura.expendit.webapi;
 
 import code.flatura.expendit.model.ConsumableModel;
-import code.flatura.expendit.service.ConsumableModelService;
+import code.flatura.expendit.service.ModelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,33 +13,33 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/models", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ConsumableModelController {
-    private ConsumableModelService consumableModelService;
+    private ModelService modelService;
 
-    public ConsumableModelController(ConsumableModelService consumableModelService) {
-        this.consumableModelService = consumableModelService;
+    public ConsumableModelController(ModelService modelService) {
+        this.modelService = modelService;
     }
 
     public ConsumableModelController() {
     }
 
     @Autowired
-    public void setConsumableModelService(ConsumableModelService consumableModelService) {
-        this.consumableModelService = consumableModelService;
+    public void setModelService(ModelService modelService) {
+        this.modelService = modelService;
     }
 
     @PostMapping
     public ResponseEntity<ConsumableModel> create(@RequestBody ConsumableModel newConsumableModel) {
-        return new ResponseEntity<>(consumableModelService.create(newConsumableModel), HttpStatus.OK);
+        return new ResponseEntity<>(modelService.create(newConsumableModel), HttpStatus.OK);
     }
 
     @GetMapping()
     public ResponseEntity<List<ConsumableModel>> getAll() {
-        return new ResponseEntity<>(consumableModelService.getAll(), HttpStatus.OK);
+        return new ResponseEntity<>(modelService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ConsumableModel> getById(@PathVariable("id") int id) {
-        return consumableModelService.getById(id)
+        return modelService.getById(id)
                 .map(c -> new ResponseEntity<>(c, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -47,18 +47,18 @@ public class ConsumableModelController {
     @GetMapping(value = "/by")
     public ResponseEntity<List<ConsumableModel>> filter(@RequestParam(name = "typeId", required = false) Integer typeId,
                                                   @RequestParam(name = "name", required = false) String name) {
-        return new ResponseEntity<>(consumableModelService.filter(typeId, name), HttpStatus.OK);
+        return new ResponseEntity<>(modelService.filter(typeId, name), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void update(@PathVariable("id") int id, @RequestBody ConsumableModel updatedConsumableModel) {
-        consumableModelService.update(updatedConsumableModel, id);
+        modelService.update(updatedConsumableModel, id);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") int id) {
-        consumableModelService.delete(id);
+        modelService.delete(id);
     }
 }

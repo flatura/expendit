@@ -1,5 +1,6 @@
 package code.flatura.expendit.webapi;
 
+import code.flatura.expendit.model.ConsumableStatus;
 import code.flatura.expendit.model.StatisticsEntry;
 import code.flatura.expendit.service.StatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +37,13 @@ public class StatisticsController {
         return new ResponseEntity<>(statisticsService.getConsumeStatsBetweenDates(startDate, endDate), HttpStatus.OK);
     }
 
+    @GetMapping("/available/{id}")
+    public ResponseEntity<StatisticsEntry> getAvailableAmountOfConsumablesById(@PathVariable(name = "id") Integer modelId) {
+        return new ResponseEntity<>(statisticsService.getAmountOfConsumables(modelId, ConsumableStatus.NEW), HttpStatus.OK);
+    }
+
     @GetMapping("/available")
-    public ResponseEntity<List<StatisticsEntry>> getAvailableAmountOfConsumables(@RequestParam(name = "id", required = false) Integer id) {
-        if (id.equals(0)) {
+    public ResponseEntity<List<StatisticsEntry>> getAvailableAmountOfConsumables() {
             return new ResponseEntity<>(statisticsService.getAvailableAmountOfAllConsumables(), HttpStatus.OK);
-        } else return new ResponseEntity<>(statisticsService.getAvailableAmountOfConsumableById(id), HttpStatus.OK);
     }
 }

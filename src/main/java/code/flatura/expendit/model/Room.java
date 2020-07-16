@@ -73,4 +73,14 @@ public class Room extends AbstractNamedEntity {
     public void setComments(String comments) {
         this.comments = comments;
     }
+
+    @Override
+    public Integer getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }

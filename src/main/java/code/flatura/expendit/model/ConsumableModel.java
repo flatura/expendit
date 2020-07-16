@@ -60,4 +60,18 @@ public class ConsumableModel extends AbstractNamedEntity {
     public void setResource(Integer resource) {
         this.resource = resource;
     }
+
+    @Override
+    public Integer getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setConsumableTypeId(int consumableTypeId) {
+        this.consumableTypeId = consumableTypeId;
+    }
 }

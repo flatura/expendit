@@ -35,7 +35,7 @@ public class ConsumeFact {
         this.storage_id = storage_id;
         this.consumableId = consumableId;
         this.consumableModelId = consumableModelId;
-        this.date = date == null ? LocalDate.now() : date;
+        this.date = (date == null ? LocalDate.now() : date);
     }
 
     public ConsumeFact() {
