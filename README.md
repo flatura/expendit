@@ -157,7 +157,7 @@
 You can run curl commands by using GitBash 
 
 Users:
-Admin admin@gmail.com admin
+Admin admin@gmail.com password
 User1 user1@gmail.com 12345678
 User2 user2@gmail.com 12345678
 
@@ -320,3 +320,18 @@ GET Summary consume counts (there must be 3 entries in result)
 
 GET Summary amount of available consumables at storages
 `curl -s "http://localhost:8080/api/stats/available" -u user:password`
+
+###### Thymeleaf Web Pages and Forms
+
+Статистика расхода по моделям за всё время
+http://localhost:8080/stats/consume
+
+OK! Баланс остатков по моделям  
+http://localhost:8080/stats/balance
+
+Добавить расход
+http://localhost:8080/add/consume
+
+Добавить приход
+http://localhost:8080/add/incoming
+

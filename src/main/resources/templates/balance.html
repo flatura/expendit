@@ -1,0 +1,29 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>ExpendIT: Баланс остатков</title>
+</head>
+<body>
+<div th:insert="~{menubar :: copy}"></div>
+<h1>Баланс остатков на складах</h1>
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Count</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="entry : ${balance_list}">
+            <td th:text="${entry.name}"></td>
+            <td th:text="${entry.count}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div th:insert="~{footer :: copy}"></div>
+</body>
+</html>

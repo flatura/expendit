@@ -71,6 +71,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE,"/api/models/**").access("hasRole('ROLE_ADMIN')")
                 //Authorization to Statistics API
                 .antMatchers(HttpMethod.GET, "/api/stats/**").access("hasRole('ROLE_USER')")
+                //Authorization to Frontend endpoints
+                .antMatchers(HttpMethod.GET, "/stats/balance").access("hasRole('ROLE_USER')")
+                .antMatchers(HttpMethod.GET, "/stats/consume").access("hasRole('ROLE_USER')")
+                .antMatchers(HttpMethod.GET, "/add/consume").access("hasRole('ROLE_USER')")
+                .antMatchers(HttpMethod.GET, "/add/incoming").access("hasRole('ROLE_USER')")
                 .anyRequest().permitAll()
                 .and()
                 .exceptionHandling().accessDeniedPage("/403")

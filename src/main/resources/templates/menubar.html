@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" >
+<body>
+<div th:fragment="copy">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">ExpendIT</a>
+            </div>
+            <div>
+                <ul>
+                    <li class="active"><a href="#">Домой</a></li>
+                </ul>
+                <ul>
+                    <li class="active"><a href="/stats/balance">Баланс</a></li>
+                </ul>
+                <ul>
+                    <li class="active"><a href="/stats/consume">Статистика</a></li>
+                </ul>
+                <ul>
+                    <li class="active"><a href="/add/incoming">Приход</a></li>
+                </ul>
+                <ul>
+                    <li class="active"><a href="/add/consume">Расход</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

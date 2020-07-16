@@ -1,0 +1,31 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>ExpendIT: Расход в месяц</title>
+</head>
+<body>
+<div th:insert="~{menubar :: copy}"></div>
+<h1>Статистика расхода в месяц</h1>
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th>Имя</th>
+            <th>Количество картриджей в месяц</th>
+            <th>Расход в месяц</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="entry : ${stats_list}">
+            <td th:text="${entry.name}"></td>
+            <td th:text="${entry.count}"></td>
+            <td th:text="${entry.dcount}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div th:insert="~{footer :: copy}"></div>
+</body>
+</html>
