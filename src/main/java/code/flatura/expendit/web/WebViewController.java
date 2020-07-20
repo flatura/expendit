@@ -20,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Controller
+@Controller("/")
 public class WebViewController {
 
     private StatisticsService statisticsService;

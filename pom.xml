@@ -92,9 +92,6 @@
             <properties>
                 <activatedProperties>hsqldb</activatedProperties>
             </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
         </profile>
         <profile>
             <id>postgres</id>
@@ -108,7 +105,9 @@
             <properties>
                 <activatedProperties>postgres</activatedProperties>
             </properties>
-
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
         </profile>
     </profiles>
 
