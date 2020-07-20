@@ -158,8 +158,8 @@ You can run curl commands by using GitBash
 
 Users:
 Admin admin@gmail.com password
-User1 user1@gmail.com 12345678
-User2 user2@gmail.com 12345678
+User1 user1@gmail.com password
+User2 user2@gmail.com password
 
 ###### Users
 

@@ -19,13 +19,14 @@ ALTER SEQUENCE consume_fact_seq RESTART WITH 100000;
 INSERT INTO users (name, email, password) VALUES
   ('user', 'user1@yandex.ru', '$2a$10$23.P3eLizBkROvHC.IdsNezdusKHow7Uhrhaa0ceVC5degwI2DdXO'), --100000 password
   ('User2', 'user2@yandex.ru', '$2a$10$23.P3eLizBkROvHC.IdsNezdusKHow7Uhrhaa0ceVC5degwI2DdXO'), --100001 password
-  ('Admin', 'admin@gmail.com', '$2a$10$23.P3eLizBkROvHC.IdsNezdusKHow7Uhrhaa0ceVC5degwI2DdXO'); --100002 password
-
+  ('Admin', 'admin@gmail.com', '$2a$10$23.P3eLizBkROvHC.IdsNezdusKHow7Uhrhaa0ceVC5degwI2DdXO'), --100002 password
+	('user3', 'user3@yandex.ru', 'password'); --100003 password
 INSERT INTO users_roles (role, user_id) VALUES
     ('ROLE_USER', 100000),
 		('ROLE_USER', 100001),
 		('ROLE_USER', 100002),
-    ('ROLE_ADMIN', 100002);
+    ('ROLE_ADMIN', 100002),
+		('ROLE_USER', 100003);
 
 INSERT INTO facility (name, address) VALUES
 		('1507','Профсоюзная ул. д.132 к.9'),  --100000
